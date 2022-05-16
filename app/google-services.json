@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "920210056702",
+    "firebase_url": "https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "lovelybnb-b90d2",
+    "storage_bucket": "lovelybnb-b90d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920210056702:android:22e3e1c4e9df30a0a10caf",
+        "android_client_info": {
+          "package_name": "com.example.lovelybnb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920210056702-b3dh147e3pdj574262na8hg4174apchc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lovelybnb",
+            "certificate_hash": "9e4c3a9ea3d74171d9715a754adfd6a631ad1918"
+          }
+        },
+        {
+          "client_id": "920210056702-0pmfuuqaffev13jk6jdsc2b231db669d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzPzEI-Oy7sXw6WjgDvQ9mdaWYaQNL5NU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920210056702-0pmfuuqaffev13jk6jdsc2b231db669d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

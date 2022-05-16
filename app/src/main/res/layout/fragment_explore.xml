@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.ExploreFragment">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:background="@color/pink_less"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="222dp"
+                    android:background="@drawable/rounded_bottom_red"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="91dp"
+                    android:layout_height="92dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:transitionName="logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/heart_white"/>
+
+                <TextView
+                    android:id="@+id/appName1"
+                    android:layout_width="96dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="44dp"
+                    android:fontFamily="@font/bangers"
+                    android:text="Lovely"
+                    android:textColor="@color/white"
+                    android:textSize="39dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/appName2"
+                    android:layout_width="61dp"
+                    android:layout_height="71dp"
+                    android:layout_marginTop="44dp"
+                    android:layout_marginEnd="72dp"
+                    android:fontFamily="@font/bangers"
+                    android:text="BnB"
+                    android:textColor="@color/white"
+                    android:textSize="39dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/rela"
+                    android:layout_width="350dp"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logo">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+
+                        <RelativeLayout
+                            android:id="@+id/relativeHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true">
+
+                                <TextView
+                                    android:id="@+id/text1"
+                                    android:layout_width="300dp"
+                                    android:layout_height="100dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/bungee"
+                                    android:text="Let your curiosity lead the way"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/redbnb"
+                                    android:textSize="25dp"
+                                    android:textStyle="bold"
+                                    android:transitionName="text"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/img"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.0"
+                                    app:srcCompat="@drawable/hometravel" />
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/searchBtn"
+                                    android:layout_width="200dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:background="@drawable/rounded_squared"
+                                    android:drawableStart="@drawable/loupe"
+                                    android:paddingStart="20dp"
+                                    android:fontFamily="@font/airbnb_cereal"
+                                    android:text="Where are you going?"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </RelativeLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/bungee"
+                    android:text="Get inspiration for your next trip"
+                    android:textSize="18dp"
+                    android:textColor="@color/redplus"
+                    android:textStyle="bold"
+                    android:transitionName="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rela" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvInspire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text2" />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/bungee"
+                    android:text="Browse by property type"
+                    android:textColor="@color/redplus"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:transitionName="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvInspire" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPropertyType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingBottom="50dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text3" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+</FrameLayout>

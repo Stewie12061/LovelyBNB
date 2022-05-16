@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">LoveLyBnB</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgetpass">Provide your account email for which you want to reset your password</string>
+
+
+    <!--    inspire data-->
+    <string name="deshcm">Vibrating with energy, innovation and traffic – lots of traffic – Ho Chi Minh City, formerly known as Saigon, is the economic heart of Vietnam and the main hub of the southern region.</string>
+    <string name="desvungtau">The pretty seaside town of Vung Tau is the Vietnamese equivalent of fish n’ chips and a few days by the sea. In short, it is where locals go to relax, soak up the sea breeze, and indulge in seafood feasts.</string>
+    <string name="desdanang">With broad beaches, fantastic street food, the fabled Hải Vân Pass, and a growing collection of cafes, restaurants, and bars, it’s no wonder the residents of Đà Nẵng sport some of the broadest smiles in the country. </string>
+    <string name="desnhatrang">Perched on a pristine stretch of the southern coast, Nha Trang is a playground for sunseekers. Days here are spent dining on delicious seafood, snorkelling around stunning islands, and partying on the sand after dark.</string>
+    <string name="desdalat">Hidden away in the Central Highlands, Đà Lạt plays the cooler cousin to Vietnam seaside destinations. Famous for its countryside charm, Đà Lạt draws couples, wellness seekers and outdoor enthusiasts.</string>
+    <string name="deshanoi">Founded over 1000 years ago, Vietnam’s capital city is rich in history, with the streets of its rambling Old Quarter dating back to the 14th century. Wandering these tree-lined lanes past crumbling colonial facades will transport you back in time.</string>
+
+    <string name="hcm">Ho Chi Minh city</string>
+    <string name="vungtau">Vung tau city</string>
+    <string name="danang">Da Nang city</string>
+    <string name="nhatrang">Nha Trang city</string>
+    <string name="dalat">Da Lat city</string>
+    <string name="hanoi">Ho Noi capital</string>
+
+    <string name="bnbCover">All bookings are protected free of charge in case of cancellation by the host, incorrect information/room and other problems such as problems during check-in</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+    <!--    end-->
+</resources>

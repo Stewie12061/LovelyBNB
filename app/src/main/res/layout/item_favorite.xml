@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingBottom="16dp"
+    android:layout_marginBottom="32dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:layout_width="380dp"
+        android:layout_height="220dp"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/favoriteImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/stewie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/favFav"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_favorite_white"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/favoriteRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5"
+            android:drawableStart="@drawable/star"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:fontFamily="@font/antic"
+            android:drawablePadding="8dp"/>
+        <TextView
+            android:id="@+id/favoritePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="13"
+            android:textSize="16dp"
+            android:fontFamily="@font/antic"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/dollar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="/night"
+            android:fontFamily="@font/antic"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/favoriteName"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:text="WE HOME BEN THANH Apartment"
+        android:textColor="@color/black"
+        android:fontFamily="@font/antic"
+        android:textSize="20dp"
+        android:drawableStart="@drawable/heart_small"
+        android:drawablePadding="8dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/favoritePlace"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hcm"
+        android:textColor="@color/black"
+        android:fontFamily="@font/antic"
+        android:textSize="18dp"
+        android:drawablePadding="8dp"
+        android:textStyle="bold"/>
+</LinearLayout>

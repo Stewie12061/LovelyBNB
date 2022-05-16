@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Explore"
+        android:id="@+id/mnuexplore"
+        android:icon="@drawable/explore"/>
+    <item android:title="Favorite"
+        android:id="@+id/mnuFavorite"
+        android:icon="@drawable/favorite"/>
+    <item android:title="Your trip"
+        android:id="@+id/mnuTrip"
+        android:icon="@drawable/plane"/>
+    <item android:title="Message"
+        android:id="@+id/mnuMessage"
+        android:icon="@drawable/message"/>
+    <item android:title="Profile"
+        android:id="@+id/mnuProfile"
+        android:icon="@drawable/user"/>
+
+</menu>
