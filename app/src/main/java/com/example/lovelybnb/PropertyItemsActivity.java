@@ -110,7 +110,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<PropertyItems, PropertyItemsViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull PropertyItemsViewHolder holder, int position, @NonNull PropertyItems model) {
-                String postKey = getRef(position).getKey();
+                String postKey = adapter.getRef(position).getKey();
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserId = user.getUid();
@@ -151,12 +151,6 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
                         holder.favoriteCheck(postKey);
 
-                        favorite.setfavoriteName(Name);
-                        favorite.setfavoritePrice(Price);
-                        favorite.setfavoriteRating(Rating);
-                        favorite.setfavoritePlace(Place);
-                        favorite.setfavoriteImage(Image);
-
                         holder.fav.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -169,6 +163,11 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                                 }
                                             });
                                 }else {
+                                    favorite.setfavoriteName(Name);
+                                    favorite.setfavoritePrice(Price);
+                                    favorite.setfavoriteRating(Rating);
+                                    favorite.setfavoritePlace(Place);
+                                    favorite.setfavoriteImage(Image);
                                     userRef.child(currentUserId).child("Favorites").child(postKey).setValue(favorite)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -250,12 +249,6 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
                         holder.favoriteCheck(postKey);
 
-                        favorite.setfavoriteName(Name);
-                        favorite.setfavoritePrice(Price);
-                        favorite.setfavoriteRating(Rating);
-                        favorite.setfavoritePlace(Place);
-                        favorite.setfavoriteImage(Image);
-
                         holder.fav.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -268,6 +261,12 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                                 }
                                             });
                                 }else {
+                                    favorite.setfavoriteName(Name);
+                                    favorite.setfavoritePrice(Price);
+                                    favorite.setfavoriteRating(Rating);
+                                    favorite.setfavoritePlace(Place);
+                                    favorite.setfavoriteImage(Image);
+
                                     userRef.child(currentUserId).child("Favorites").child(postKey).setValue(favorite)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
