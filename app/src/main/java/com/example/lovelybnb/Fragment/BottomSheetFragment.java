@@ -1,8 +1,10 @@
 package com.example.lovelybnb.Fragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lovelybnb.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -22,10 +25,10 @@ import java.util.TimeZone;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    EditText checkinday, checkoutday;
-    TextView orderPrice, totalPrice, orderRating, orderName, orderPlace;
+    TextView orderPrice, totalPrice, orderRating, orderName, orderPlace,checkinday,checkoutday;
 
-    int mDay,mMonth,mYear;
+    int mDayIn,mMonthIn,mYearIn, mDayOut,mMonthOut,mYearOut;
+    int price, fullprice;
     boolean isDob;
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -46,9 +49,16 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         orderPlace = view.findViewById(R.id.orderItemPlace);
         orderRating = view.findViewById(R.id.orderItemRating);
         totalPrice = view.findViewById(R.id.orderItemPriceTotal);
-        checkinday = view.findViewById(R.id.editTextCheckIn);
-        checkoutday = view.findViewById(R.id.editTextCheckOut);
+        checkinday = view.findViewById(R.id.TextCheckIn);
+        checkoutday = view.findViewById(R.id.TextCheckOut);
 
+        checkinday.setText("Select day check in");
+        checkoutday.setText("Select day check out");
+
+
+         price = Integer.valueOf(orderPrice.getText().toString());
+         fullprice=price;
+         totalPrice.setText(String.valueOf(fullprice));
 
         checkinday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,44 +74,78 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         new DatePickerDialog.OnDateSetListener() {
                             public void onDateSet(DatePicker view, int selectedYear,
                                                   int selectedMonth, int selectedDay) {
-                                mDay = selectedDay;
-                                mMonth = selectedMonth;
-                                mYear = selectedYear;
-                                StringBuilder Date = new StringBuilder("");
-                                String conver = Integer.toString(selectedYear);
-                                Date.append(conver);
-                                Date.append("-");
-                                selectedMonth++;
-                                conver = Integer.toString(selectedMonth);
-                                Date.append(conver);
-                                Date.append("-");
-                                conver = Integer.toString(selectedDay);
-                                Date.append(conver);
-                                isDob = true;
-                            }
-                        }, mDay, mMonth, mYear);
+                                mDayIn = selectedDay;
+                                mMonthIn = selectedMonth;
+                                mYearIn = selectedYear;
 
-                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+                                checkinday.setText(mDayIn + "/" + mMonthIn + "/" + mYearIn);
+                            }
+                        }, mDayIn, mMonthIn, mYearIn);
 
 
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.setTitle("Select Date");
-                datePickerDialog.show();
 
 
-                final Calendar calendar3 = Calendar.getInstance();
-                //Set Maximum date of calendar
-                calendar3.set(2023, 1, 1);
-                //Set One Month date from today date to calendar
-                //calendar3.add(Calendar.MONTH, 1);
-                datePickerDialog.getDatePicker().setMaxDate(calendar3.getTimeInMillis());
+                final Calendar calendar2 = Calendar.getInstance();
+                calendar2.set(2023, 1, 1);
+                datePickerDialog.getDatePicker().setMaxDate(calendar2.getTimeInMillis());
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.show();
             }
         });
 
 
+        checkoutday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkinday.getText().toString().equals("Select day check in")){
+                    Toast.makeText(getContext(),"You have to choose check in day first",Toast.LENGTH_SHORT).show();
+                }else {
+                    final Calendar calendar = Calendar.getInstance();
+                    //set time zone
+                    calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+                    int selectedYear = calendar.get(Calendar.YEAR);
+                    int selectedMonth = calendar.get(Calendar.MONTH);
+                    int selectedDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                            new DatePickerDialog.OnDateSetListener() {
+                                public void onDateSet(DatePicker view, int selectedYear,
+                                                      int selectedMonth, int selectedDay) {
+                                    mDayOut = selectedDay;
+                                    mMonthOut = selectedMonth;
+                                    mYearOut = selectedYear;
+
+                                    checkoutday.setText(mDayOut + "/" + mMonthOut + "/" + mYearOut);
+
+                                    if (mMonthIn == mMonthOut){
+                                        fullprice = price*(mDayOut-mDayIn);
+                                        totalPrice.setText(String.valueOf(fullprice));
+                                    }
+                                }
+                            }, mDayOut, mMonthOut, mYearOut);
+
+
+                    final Calendar calendar2 = Calendar.getInstance();
+                    calendar2.set(mYearIn, mMonthIn, mDayIn + 1);
+                    datePickerDialog.getDatePicker().setMinDate(calendar2.getTimeInMillis());
+                    datePickerDialog.setTitle("Select Date");
+
+                    final Calendar calendar3 = Calendar.getInstance();
+                    calendar3.set(2023, 1, 1);
+                    datePickerDialog.getDatePicker().setMaxDate(calendar3.getTimeInMillis());
+                    datePickerDialog.setTitle("Select Date");
+                    datePickerDialog.show();
+
+
+
+                }
+            }
+
+        });
 
         return view;
     }
+
 }
