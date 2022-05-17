@@ -1,18 +1,14 @@
 package com.example.lovelybnb;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +17,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.lovelybnb.Data.Favorite;
+import com.example.lovelybnb.Fragment.BottomSheetFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -63,6 +60,8 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
     Favorite favorite;
     private GoogleMap mMap;
     Geocoder geocoder;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,23 +122,10 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         opensheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ItemDetailActivity.this,R.style.BottomSheetDialogTheme);
-                View bottomSheetView = LayoutInflater.from(getApplicationContext())
-                        .inflate(R.layout.item_sheet_popup,(ConstraintLayout)findViewById(R.id.sheetContainer));
-
-                bottomSheetView.findViewById(R.id.dismissSheet).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-
-                    }
-                });
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
             }
         });
-
 
 
 

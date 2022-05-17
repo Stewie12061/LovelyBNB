@@ -744,7 +744,7 @@
             android:layout_weight="1"
             android:textSize="16dp"
             android:fontFamily="@font/airbnb_cereal"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/bg_rounded_white"
             android:text="Request to book"
             android:textColor="@color/black" />
     </LinearLayout>
