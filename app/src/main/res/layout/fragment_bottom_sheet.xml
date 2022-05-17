@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/roundedImageView"
+        android:id="@+id/orderItemImg"
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
@@ -35,8 +35,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/roundedImageView"
-        app:layout_constraintTop_toTopOf="@+id/roundedImageView" />
+        app:layout_constraintStart_toEndOf="@+id/orderItemImg"
+        app:layout_constraintTop_toTopOf="@+id/orderItemImg" />
 
     <TextView
         android:id="@+id/textView2"
@@ -54,87 +54,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dismissSheet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_squared"
-        android:fontFamily="@font/airbnb_cereal"
-        android:padding="8dp"
-        android:text="Confirm Request"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderItemRating">
-
-        <TextView
-            android:id="@+id/textView4"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dismissSheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_squared"
             android:fontFamily="@font/airbnb_cereal"
-            android:text="Choose check in day"
-            android:textColor="@color/redbnb"
+            android:padding="8dp"
+            android:text="Confirm Request"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="18dp"
-            android:textStyle="bold" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
-        <TextView
-            android:id="@+id/TextCheckIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_border"
-            android:ems="10"
-            android:text="Select day check in"
-            android:textColor="@color/hint"
-            android:textSize="18dp"
-            android:fontFamily="@font/airbnb_cereal"
-            android:textStyle="bold"
-            android:padding="8dp" />
-
-        <TextView
-            android:id="@+id/textView5"
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/airbnb_cereal"
-            android:text="Choose check out day"
-            android:textColor="@color/redbnb"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderItemAddress">
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="180dp"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/LinearIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check in day"
+                        android:drawableStart="@drawable/calendar"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/redbnb"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/TextCheckIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:layout_gravity="center"
+                        android:textColor="@color/redbnb"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/lnln3"
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:id="@+id/LinearOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check in day"
+                        android:drawableStart="@drawable/calendar"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/redbnb"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/TextCheckOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:textColor="@color/redbnb"
+                        android:layout_gravity="center"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/TextCheckOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_border"
-            android:ems="10"
-            android:text="Select day check out"
-            android:textColor="@color/hint"
-            android:textSize="18dp"
-            android:fontFamily="@font/airbnb_cereal"
-            android:textStyle="bold"
-            android:padding="8dp" />
-
-    </LinearLayout>
-
-    <TextView
         android:id="@+id/orderItemPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,16 +160,14 @@
         android:fontFamily="@font/airbnb_cereal"
         android:text="Order item place"
         android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/roundedImageView"
-        app:layout_constraintTop_toBottomOf="@+id/roundedImageView" />
+        app:layout_constraintStart_toStartOf="@+id/orderItemImg"
+        app:layout_constraintTop_toBottomOf="@+id/orderItemImg" />
 
     <TextView
-        android:id="@+id/orderItemRating"
+        android:id="@+id/orderItemAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:drawableStart="@drawable/star"
-        android:drawablePadding="5dp"
         android:fontFamily="@font/airbnb_cereal"
         android:text="Order item rating"
         android:textSize="18dp"
@@ -159,15 +175,103 @@
         app:layout_constraintTop_toTopOf="@+id/orderItemPlace" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderItemPlace">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check in at"
+                        android:drawableStart="@drawable/time"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/redbnb"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/checkInTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="1:00 PM"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/redbnb"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/lnln"
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check out at "
+                        android:drawableStart="@drawable/time"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/redbnb"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/checkOutTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="12:00 AM"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/redbnb"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
-            android:layout_width="250dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/redbnb"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/redplus"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -206,7 +310,7 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/lnln"
+                    android:id="@+id/lnln2"
                     android:layout_width="150dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center"
@@ -232,7 +336,6 @@
                         android:id="@+id/orderItemPriceTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:drawableEnd="@drawable/dollar_white"
                         android:fontFamily="@font/airbnb_cereal"

@@ -45,6 +45,7 @@
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center"
+            android:transitionName="fav"
             android:background="@drawable/ic_favorite_white"/>
 
 
@@ -602,7 +603,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/redplus"
                 app:cardCornerRadius="20dp"

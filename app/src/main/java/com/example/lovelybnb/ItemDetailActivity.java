@@ -122,8 +122,12 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         opensheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("itemId", itemId);
                 BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.setArguments(bundle);
                 bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
+
             }
         });
 

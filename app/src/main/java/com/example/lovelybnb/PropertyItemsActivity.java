@@ -137,12 +137,13 @@ public class PropertyItemsActivity extends AppCompatActivity {
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(PropertyItemsActivity.this, ItemDetailActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
-                                Pair[] pairs = new Pair[5];
+                                Pair[] pairs = new Pair[6];
                                 pairs[0] = new Pair<View,String>(holder.PropertyItemName, "name");
                                 pairs[1] = new Pair<View,String>(holder.PropertyItemImg, "img");
                                 pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
+                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
 
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
                                 startActivity(intent, options.toBundle());
@@ -235,12 +236,13 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                 Intent intent = new Intent(PropertyItemsActivity.this, ItemDetailActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
 
-                                Pair[] pairs = new Pair[5];
+                                Pair[] pairs = new Pair[6];
                                 pairs[0] = new Pair<View,String>(holder.PropertyItemName, "name");
                                 pairs[1] = new Pair<View,String>(holder.PropertyItemImg, "img");
                                 pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
+                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
 
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
                                 startActivity(intent, options.toBundle());

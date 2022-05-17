@@ -155,12 +155,13 @@ public class FavoriteFragment extends Fragment {
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(getContext(), ItemDetailActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
-                                Pair[] pairs = new Pair[5];
+                                Pair[] pairs = new Pair[6];
                                 pairs[0] = new Pair<View,String>(holder.FavoriteName, "name");
                                 pairs[1] = new Pair<View,String>(holder.FavoriteImg, "img");
                                 pairs[2] = new Pair<View,String>(holder.FavoritePrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.FavoritePlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.FavoriteRating, "rating");
+                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pairs);
                                 startActivity(intent, options.toBundle());
                             }

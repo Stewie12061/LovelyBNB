@@ -36,6 +36,7 @@
             android:layout_gravity="right"
             android:layout_margin="8dp"
             android:background="@null"
+            android:transitionName="fav"
             android:drawableTop="@drawable/ic_favorite_white"
             tools:ignore="SpeakableTextPresentCheck" />
 

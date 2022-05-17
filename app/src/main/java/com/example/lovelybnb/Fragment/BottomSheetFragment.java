@@ -13,11 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lovelybnb.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -25,11 +29,17 @@ import java.util.TimeZone;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    TextView orderPrice, totalPrice, orderRating, orderName, orderPlace,checkinday,checkoutday;
+    TextView orderPrice, totalPrice, orderAddress, orderName, orderPlace,checkinday,checkoutday;
+    ImageView orderImg;
 
     int mDayIn,mMonthIn,mYearIn, mDayOut,mMonthOut,mYearOut;
     int price, fullprice;
-    boolean isDob;
+    String itemId;
+    LinearLayout linearOut, linearIn;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference detailRef, sliderRef, userRef, hostRef;
+
     public BottomSheetFragment() {
         // Required empty public constructor
     }
@@ -43,24 +53,27 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
 
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
+        detailRef = firebaseDatabase.getReference("Items");
+        hostRef = firebaseDatabase.getReference("Item Detail");
 
         orderName = view.findViewById(R.id.orderItemName);
         orderPrice = view.findViewById(R.id.orderItemPrice);
         orderPlace = view.findViewById(R.id.orderItemPlace);
-        orderRating = view.findViewById(R.id.orderItemRating);
+        orderAddress = view.findViewById(R.id.orderItemAddress);
         totalPrice = view.findViewById(R.id.orderItemPriceTotal);
         checkinday = view.findViewById(R.id.TextCheckIn);
         checkoutday = view.findViewById(R.id.TextCheckOut);
-
-        checkinday.setText("Select day check in");
-        checkoutday.setText("Select day check out");
+        orderImg = view.findViewById(R.id.orderItemImg);
+        linearIn = view.findViewById(R.id.LinearIn);
+        linearOut = view.findViewById(R.id.LinearOut);
 
 
          price = Integer.valueOf(orderPrice.getText().toString());
          fullprice=price;
          totalPrice.setText(String.valueOf(fullprice));
 
-        checkinday.setOnClickListener(new View.OnClickListener() {
+        linearIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
@@ -96,10 +109,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         });
 
 
-        checkoutday.setOnClickListener(new View.OnClickListener() {
+        linearOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkinday.getText().toString().equals("Select day check in")){
+                if (checkinday.getText().toString().equals("")){
                     Toast.makeText(getContext(),"You have to choose check in day first",Toast.LENGTH_SHORT).show();
                 }else {
                     final Calendar calendar = Calendar.getInstance();
@@ -145,7 +158,15 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         });
 
+        itemId = getArguments().getString("itemId");
+        getOrderItem();
+
         return view;
+    }
+
+    private void getOrderItem() {
+
+
     }
 
 }
