@@ -24,6 +24,8 @@ import com.example.lovelybnb.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,6 +75,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         detailRef = firebaseDatabase.getReference("Items");
         hostRef = firebaseDatabase.getReference("Item Detail");
         receiptRef = firebaseDatabase.getReference("Receipt");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserId = user.getUid();
 
         orderName = view.findViewById(R.id.orderItemName);
         orderPrice = view.findViewById(R.id.orderItemPrice);
@@ -225,7 +230,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                     String dayOrder = checkinday.getText().toString();
 
-                    receiptRef.child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    receiptRef.child(currentUserId).child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Intent intent = new Intent(getContext(), MainActivity.class);

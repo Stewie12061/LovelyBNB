@@ -20,6 +20,8 @@ import com.example.lovelybnb.Data.Receipt;
 import com.example.lovelybnb.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +34,8 @@ public class TripFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference receiptRef;
     RecyclerView rvTrip;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,9 @@ public class TripFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         receiptRef = firebaseDatabase.getReference("Receipt");
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
         rvTrip = view.findViewById(R.id.rvTrip);
         rvTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -65,14 +72,15 @@ public class TripFragment extends Fragment {
     }
 
     private void getTripData() {
-        FirebaseRecyclerOptions<Receipt> options = new FirebaseRecyclerOptions.Builder<Receipt>().setQuery(receiptRef,Receipt.class).build();
+        String currentUserId = firebaseUser.getUid();
+        FirebaseRecyclerOptions<Receipt> options = new FirebaseRecyclerOptions.Builder<Receipt>().setQuery(receiptRef.child(currentUserId),Receipt.class).build();
 
         FirebaseRecyclerAdapter<Receipt, TripViewHolder> adapter = new FirebaseRecyclerAdapter<Receipt, TripViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull TripViewHolder holder, int position, @NonNull Receipt model) {
                 String id = getRef(position).getKey();
 
-                receiptRef.child(id).addValueEventListener(new ValueEventListener() {
+                receiptRef.child(currentUserId).child(id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String name = snapshot.child("receiptName").getValue().toString();
