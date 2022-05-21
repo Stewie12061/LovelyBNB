@@ -49,13 +49,10 @@ public class ExploreFragment extends Fragment{
 
 
 //    private PropertyTypeAdapter propertyTypeAdapter;
-    private RecyclerView rvInspire, rvProperty;
-    private ArrayList<Inspire> arrayListInspire;
-    private ArrayList<PropertyType> arrayListProperty;
+    private RecyclerView rvInspire, rvProperty;;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference referenceInspire, referenceProperty;
-    private ChildEventListener childEventListener;
     FirebaseRecyclerAdapter<PropertyType, PropertyTypeViewHolder> adapterProperty;
     FirebaseRecyclerAdapter<Inspire, InspireViewHolder> adapterInspire;
 
@@ -70,9 +67,6 @@ public class ExploreFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ExploreView = inflater.inflate(R.layout.fragment_explore, container, false);
-
-        arrayListInspire = new ArrayList<>();
-        arrayListProperty = new ArrayList<>();
 
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");

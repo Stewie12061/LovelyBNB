@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/dismissSheet"
+            android:id="@+id/placeOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check in day"
+                        android:text="Check out day"
                         android:drawableStart="@drawable/calendar"
                         android:drawablePadding="5dp"
                         android:textColor="@color/redbnb"
@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/airbnb_cereal"
-        android:text="Order item rating"
+        android:text="Order item address"
         android:textSize="18dp"
         app:layout_constraintStart_toEndOf="@+id/orderItemPlace"
         app:layout_constraintTop_toTopOf="@+id/orderItemPlace" />
@@ -265,7 +265,7 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/redplus"
+            android:backgroundTint="@color/redbnb"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -339,7 +339,7 @@
                         android:layout_weight="1"
                         android:drawableEnd="@drawable/dollar_white"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="100"
+                        android:text="0"
                         android:textAlignment="textEnd"
                         android:textColor="@color/white"
                         android:textSize="24dp"

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActivityOptions;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -34,6 +33,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class PropertyItemsActivity extends AppCompatActivity {
     private RecyclerView rvPropertyItems;
     private FirebaseDatabase firebaseDatabase;
@@ -49,6 +50,8 @@ public class PropertyItemsActivity extends AppCompatActivity {
     String itemId;
     Button fav;
     Favorite favorite;
+    String key = "4";
+    ArrayList<String> arrayList = null;
 
     FirebaseRecyclerAdapter<PropertyItems, PropertyItemsViewHolder> adapter;
 
@@ -63,6 +66,10 @@ public class PropertyItemsActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("Items");
         userRef = firebaseDatabase.getReference("Registered users");
+
+        //get key from receipt
+
+        getReceiptKey();
 
         rvPropertyItems = findViewById(R.id.rvPropertyItems);
         rvPropertyItems.setHasFixedSize(true);
@@ -98,8 +105,43 @@ public class PropertyItemsActivity extends AppCompatActivity {
         });
         fav = findViewById(R.id.Fav);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        arrayList = new ArrayList<String>();
+        getReceiptKey();
+        if (categoryId != null){
+            getDataPropertyItems();
+            propertyName = getIntent().getStringExtra("PropertyName");
+            propertyNameItem.setText(propertyName);
+        }
+
+        if (propertyPlace != null){
+            getDataPropertyInspire();
+            propertyName = getIntent().getStringExtra("PropertyPlace");
+
+            propertyNameItem.setText(propertyName);
+        }
+    }
 
 
+    private void getReceiptKey() {
+        DatabaseReference receiptRef = firebaseDatabase.getReference("Receipt");
+        receiptRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList = new ArrayList<String>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    arrayList.add(dataSnapshot.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private void getDataPropertyInspire() {
@@ -115,10 +157,16 @@ public class PropertyItemsActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserId = user.getUid();
 
+                //if an item has been booked, removed it
+                if (arrayList.contains(postKey)){
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
 
                 databaseReference.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
 
                         String Name = snapshot.child("name").getValue().toString();
                         String Price = snapshot.child("price").getValue().toString();
@@ -147,6 +195,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
                                 startActivity(intent, options.toBundle());
+
                             }
                         });
 
@@ -186,6 +235,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                     }
                 });
 
+
             }
             @NonNull
             @Override
@@ -213,6 +263,10 @@ public class PropertyItemsActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserId = user.getUid();
 
+                if (arrayList.contains(postKey)){
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
 
                 databaseReference.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
