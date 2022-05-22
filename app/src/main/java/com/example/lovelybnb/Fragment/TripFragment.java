@@ -67,13 +67,22 @@ public class TripFragment extends Fragment {
         rvTrip = view.findViewById(R.id.rvTrip);
         rvTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
+        Receipt receipt = new Receipt();
+        getTripData();
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        Receipt receipt = new Receipt();
         getTripData();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     private void getTripData() {
@@ -126,6 +135,7 @@ public class TripFragment extends Fragment {
             }
         };
         rvTrip.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         adapter.startListening();
     }
 }

@@ -73,17 +73,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderItemAddress">
+            app:layout_constraintTop_toTopOf="@+id/cardView3">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
                 android:layout_width="180dp"
-                android:gravity="center"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -91,13 +90,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check in day"
                         android:drawableStart="@drawable/calendar"
                         android:drawablePadding="5dp"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check in day"
                         android:textColor="@color/redbnb"
                         android:textSize="18dp" />
 
@@ -105,8 +105,8 @@
                         android:id="@+id/TextCheckIn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/airbnb_cereal"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/airbnb_cereal"
                         android:textColor="@color/redbnb"
                         android:textSize="24dp"
                         android:textStyle="bold" />
@@ -127,13 +127,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check out day"
                         android:drawableStart="@drawable/calendar"
                         android:drawablePadding="5dp"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check out day"
                         android:textColor="@color/redbnb"
                         android:textSize="18dp" />
 
@@ -141,9 +142,9 @@
                         android:id="@+id/TextCheckOut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/airbnb_cereal"
                         android:textColor="@color/redbnb"
-                        android:layout_gravity="center"
                         android:textSize="24dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -152,38 +153,53 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-        android:id="@+id/orderItemPlace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/airbnb_cereal"
-        android:text="Order item place"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/orderItemImg"
-        app:layout_constraintTop_toBottomOf="@+id/orderItemImg" />
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/orderItemImg"
+            app:layout_constraintTop_toBottomOf="@+id/orderItemImg">
+            <TextView
+                android:id="@+id/orderItemPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/airbnb_cereal"
+                android:text="Order item place"
+                android:textSize="18dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=","
+                android:fontFamily="@font/airbnb_cereal"
+                android:textSize="18dp"/>
 
-    <TextView
-        android:id="@+id/orderItemAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/airbnb_cereal"
-        android:text="Order item address"
-        android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/orderItemPlace"
-        app:layout_constraintTop_toTopOf="@+id/orderItemPlace" />
+            <TextView
+                android:id="@+id/orderItemAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/airbnb_cereal"
+                android:text="Order item address"
+                android:textSize="18dp"
+                app:layout_constraintStart_toEndOf="@+id/orderItemPlace"
+                app:layout_constraintTop_toTopOf="@+id/orderItemPlace" />
+        </LinearLayout>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderItemPlace">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -202,10 +218,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check in at"
                         android:drawableStart="@drawable/time"
                         android:drawablePadding="5dp"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check in at"
                         android:textColor="@color/redbnb"
                         android:textSize="18dp" />
 
@@ -239,10 +255,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check out at "
                         android:drawableStart="@drawable/time"
                         android:drawablePadding="5dp"
+                        android:fontFamily="@font/airbnb_cereal"
+                        android:text="Check out at "
                         android:textColor="@color/redbnb"
                         android:textSize="18dp" />
 
@@ -347,6 +363,33 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/airbnb_cereal"
+                android:textSize="18dp"
+                android:text="Contact:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/orderItemContact"
+                android:fontFamily="@font/airbnb_cereal"
+                android:textSize="18dp"
+                android:layout_marginStart="8dp"
+                android:text="Order item contact"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

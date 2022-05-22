@@ -16,17 +16,19 @@
 
         <TextView
             android:id="@+id/backprevious"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:drawableStart="@drawable/arrow_white" />
+
         <TextView
             android:id="@+id/detailItemRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/bg_rounded_white"
             android:drawableStart="@drawable/star"
             android:drawablePadding="5dp"
@@ -37,16 +39,16 @@
             android:text="Item Rating"
             android:textColor="@color/black"
             android:textSize="18dp"
-            android:layout_marginEnd="8dp"
             android:transitionName="rating" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/favItemDetail"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center"
-            android:transitionName="fav"
-            android:background="@drawable/ic_favorite_white"/>
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_favorite_white"
+            android:transitionName="fav" />
 
 
     </LinearLayout>

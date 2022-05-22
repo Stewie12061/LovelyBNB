@@ -3,11 +3,11 @@ package com.example.lovelybnb.Data;
 import android.widget.ImageView;
 
 public class Receipt {
-    String receiptName, receiptPrice, receiptAddress, receiptPlace, receiptDaycheckin, receiptDaycheckout, receiptImg, dayStay;
+    String receiptName, receiptPrice, receiptAddress, receiptPlace, receiptDaycheckin, receiptDaycheckout, receiptImg, dayStay, receiptContact;
 
     public Receipt(){}
 
-    public Receipt(String receiptName, String receiptAddress, String receiptPlace, String receiptPrice, String receiptDaycheckin, String receiptDaycheckout,String receiptImg, String dayStay){
+    public Receipt(String receiptContact,String receiptName, String receiptAddress, String receiptPlace, String receiptPrice, String receiptDaycheckin, String receiptDaycheckout,String receiptImg, String dayStay){
         this.receiptAddress = receiptAddress;
         this.receiptName = receiptName;
         this.receiptPlace = receiptPlace;
@@ -16,6 +16,15 @@ public class Receipt {
         this.receiptDaycheckout = receiptDaycheckout;
         this.receiptImg = receiptImg;
         this.dayStay = dayStay;
+        this.receiptContact = receiptContact;
+    }
+
+    public String getReceiptContact() {
+        return receiptContact;
+    }
+
+    public void setReceiptContact(String receiptContact) {
+        this.receiptContact = receiptContact;
     }
 
     public String getDayStay() {

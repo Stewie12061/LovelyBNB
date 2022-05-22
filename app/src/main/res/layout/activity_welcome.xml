@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/appName1"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="44dp"
@@ -46,7 +46,7 @@
 
     <TextView
         android:id="@+id/appName2"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="72dp"

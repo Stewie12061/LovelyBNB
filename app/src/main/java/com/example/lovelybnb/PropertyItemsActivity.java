@@ -79,22 +79,10 @@ public class PropertyItemsActivity extends AppCompatActivity {
         propertyNameItem = findViewById(R.id.propertyNameInItem);
         favorite = new Favorite();
 
-        //fetch data property items equal to id
         categoryId = getIntent().getStringExtra("IdPropertyType");
-        if (categoryId != null){
-            getDataPropertyItems();
-            propertyName = getIntent().getStringExtra("PropertyName");
-            propertyNameItem.setText(propertyName);
-        }
 
-        //fetch data property items equal to place name
+
         propertyPlace = getIntent().getStringExtra("PropertyPlace");
-        if (propertyPlace != null){
-            getDataPropertyInspire();
-            propertyName = getIntent().getStringExtra("PropertyPlace");
-
-            propertyNameItem.setText(propertyName);
-        }
 
         goback = findViewById(R.id.backprevious);
         goback.setOnClickListener(new View.OnClickListener() {
@@ -112,12 +100,14 @@ public class PropertyItemsActivity extends AppCompatActivity {
         super.onStart();
         arrayList = new ArrayList<String>();
         getReceiptKey();
+        //fetch data property items equal to id
+
         if (categoryId != null){
             getDataPropertyItems();
             propertyName = getIntent().getStringExtra("PropertyName");
             propertyNameItem.setText(propertyName);
         }
-
+        //fetch data property items equal to place name
         if (propertyPlace != null){
             getDataPropertyInspire();
             propertyName = getIntent().getStringExtra("PropertyPlace");

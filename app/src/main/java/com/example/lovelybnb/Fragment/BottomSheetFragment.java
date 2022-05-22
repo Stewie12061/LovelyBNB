@@ -41,7 +41,7 @@ import java.util.TimeZone;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    TextView orderPrice, totalPrice, orderAddress, orderName, orderPlace,checkinday,checkoutday, checkinTime,checkoutTime;
+    TextView orderPrice, totalPrice, orderAddress, orderName, orderPlace,checkinday,checkoutday, checkinTime,checkoutTime, orderContact;
     ImageView orderImg;
 
     int mDayIn,mMonthIn,mYearIn, mDayOut,mMonthOut,mYearOut;
@@ -93,6 +93,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         orderBtn = view.findViewById(R.id.placeOrder);
         checkinTime = view.findViewById(R.id.checkInTime);
         checkoutTime = view.findViewById(R.id.checkOutTime);
+        orderContact = view.findViewById(R.id.orderItemContact);
 
         checkoutday.setText(checkinday.getText().toString());
 
@@ -227,6 +228,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     receipt.setReceiptDaycheckout(checkoutday.getText().toString());
                     receipt.setDayStay(dayDifference);
                     receipt.setReceiptImg(img);
+                    receipt.setReceiptContact(orderContact.getText().toString());
 
                     String dayOrder = checkinday.getText().toString();
 
@@ -281,10 +283,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 String checkin = snapshot.child("check in").getValue().toString();
                 String checkout = snapshot.child("check out").getValue().toString();
                 String address = snapshot.child("address").getValue().toString();
+                String contact = snapshot.child("host phone").getValue().toString();
 
                 orderAddress.setText(address);
                 checkinTime.setText(checkin);
                 checkoutTime.setText(checkout);
+                orderContact.setText(contact);
 
             }
 

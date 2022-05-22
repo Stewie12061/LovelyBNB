@@ -41,11 +41,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoriteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class FavoriteFragment extends Fragment {
     RecyclerView rvFavorite;
     FirebaseDatabase firebaseDatabase;
@@ -53,47 +51,7 @@ public class FavoriteFragment extends Fragment {
     Boolean favoriteChecker = false;
     FirebaseRecyclerAdapter<Favorite, FavoriteViewHolder> adapter;
     String currentUserId;
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        FavoriteFragment fragment = new FavoriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    ArrayList<String> arrayList = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,9 +74,37 @@ public class FavoriteFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         userRef = firebaseDatabase.getReference("Registered users");
 
+        getReceiptKey();
         getDataFavorite();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        arrayList = new ArrayList<String>();
+        getReceiptKey();
+        getDataFavorite();
+    }
+
+    private void getReceiptKey() {
+        DatabaseReference receiptRef = firebaseDatabase.getReference("Receipt");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserId = user.getUid();
+
+        receiptRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList = new ArrayList<String>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    arrayList.add(dataSnapshot.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
     private void getDataFavorite() {
         Query query = userRef.child(currentUserId).child("Favorites");
@@ -133,6 +119,10 @@ public class FavoriteFragment extends Fragment {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserId = user.getUid();
 
+                if (arrayList.contains(postKey)){
+                    holder.itemView.setVisibility(View.GONE);
+                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
 
                 userRef.child(currentUserId).child("Favorites").child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
