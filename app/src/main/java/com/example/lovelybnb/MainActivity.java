@@ -29,16 +29,12 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         display(R.id.mnuexplore);
         bottomNavigationView = findViewById(R.id.bottomNav);
