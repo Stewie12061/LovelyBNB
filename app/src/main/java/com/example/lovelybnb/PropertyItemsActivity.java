@@ -118,11 +118,11 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
 
     private void getReceiptKey() {
-        DatabaseReference receiptRef = firebaseDatabase.getReference("Receipt");
+        DatabaseReference userRef = firebaseDatabase.getReference("Registered users");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
 
-        receiptRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+        userRef.child(currentUserId).child("Trip").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList = new ArrayList<String>();

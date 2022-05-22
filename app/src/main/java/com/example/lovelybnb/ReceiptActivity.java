@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +19,7 @@ public class ReceiptActivity extends AppCompatActivity {
     TextView goback;
     Button Cancel;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference receiptRef;
+    DatabaseReference userRef;
     String itemId;
 
     @Override
@@ -27,7 +28,7 @@ public class ReceiptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receipt);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
-        receiptRef = firebaseDatabase.getReference("Receipt");
+        userRef = firebaseDatabase.getReference("Registered users");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
@@ -45,13 +46,12 @@ public class ReceiptActivity extends AppCompatActivity {
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                receiptRef.child(currentUserId).child(itemId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                userRef.child(currentUserId).child("Trip").child(itemId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(),"Cancel reservation",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
-                        notify();
-
                     }
                 });
 

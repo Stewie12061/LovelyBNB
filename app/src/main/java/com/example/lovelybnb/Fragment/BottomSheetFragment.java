@@ -51,7 +51,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     Button orderBtn;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference detailRef, hostRef, receiptRef;
+    DatabaseReference detailRef, hostRef, userRef;
     Date dateStart;
     Date dateEnd;
     String dayDifference = "";
@@ -74,7 +74,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         detailRef = firebaseDatabase.getReference("Items");
         hostRef = firebaseDatabase.getReference("Item Detail");
-        receiptRef = firebaseDatabase.getReference("Receipt");
+        userRef = firebaseDatabase.getReference("Registered users");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
@@ -232,9 +232,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                     String dayOrder = checkinday.getText().toString();
 
-                    receiptRef.child(currentUserId).child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    userRef.child(currentUserId).child("Trip").child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            Toast.makeText(getContext(),"Request reservation successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -242,7 +243,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(),"Can't place order",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Can't place Request reservation",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
