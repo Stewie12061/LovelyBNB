@@ -6,13 +6,19 @@
     android:background="@color/pink_less"
     android:layout_height="match_parent"
     tools:context=".Fragment.ProfileFragment">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <LinearLayout
-            android:layout_width="414dp"
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
             android:layout_height="222dp"
             android:background="@drawable/rounded_bottom_red"
             android:orientation="vertical"
@@ -66,15 +72,16 @@
             android:id="@+id/cardView"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_weight="1"
-            app:cardCornerRadius="20dp"
-            android:paddingBottom="10dp"
             android:background="@drawable/bg_rounded_white"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_avatar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -93,9 +100,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        app:cardCornerRadius="20dp"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/redbnb"
-                        android:layout_weight="1">
+                        app:cardCornerRadius="20dp">
 
 
                         <LinearLayout
@@ -125,10 +132,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        app:cardCornerRadius="20dp"
                         android:layout_marginRight="16dp"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/redbnb"
-                        android:layout_weight="1">
+                        app:cardCornerRadius="20dp">
+
                         <LinearLayout
                             android:id="@+id/payment"
                             android:layout_width="match_parent"
@@ -211,9 +219,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/pink"
+                        android:fontFamily="@font/airbnb_cereal"
                         android:padding="5dp"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/redplus"
+                        android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -241,9 +250,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/pink"
+                        android:fontFamily="@font/airbnb_cereal"
                         android:padding="5dp"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/redplus"
+                        android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -271,9 +281,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/pink"
+                        android:fontFamily="@font/airbnb_cereal"
                         android:padding="5dp"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/redplus"
+                        android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -301,9 +312,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/pink"
+                        android:fontFamily="@font/airbnb_cereal"
                         android:padding="5dp"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/redplus"
+                        android:textColor="@color/black"
                         android:textSize="18dp" />
                 </LinearLayout>
 
@@ -311,6 +323,7 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <Button
             android:id="@+id/signoutbnt"
             android:layout_width="match_parent"
@@ -318,15 +331,18 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="30dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/white"
             android:text="Sign Out"
+            android:textColor="@color/redbnb"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:textColor="@color/redbnb"
-            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

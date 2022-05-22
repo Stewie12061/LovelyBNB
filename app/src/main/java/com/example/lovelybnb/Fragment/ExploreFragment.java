@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.example.lovelybnb.Data.PropertyType;
 import com.example.lovelybnb.ItemClickListener;
 import com.example.lovelybnb.PropertyItemsActivity;
 import com.example.lovelybnb.R;
+import com.example.lovelybnb.SearchActivity;
 import com.example.lovelybnb.SignupActivit;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -50,6 +52,7 @@ public class ExploreFragment extends Fragment{
 
 //    private PropertyTypeAdapter propertyTypeAdapter;
     private RecyclerView rvInspire, rvProperty;;
+    Button search;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference referenceInspire, referenceProperty;
@@ -79,6 +82,14 @@ public class ExploreFragment extends Fragment{
 
         rvProperty = (RecyclerView) ExploreView.findViewById(R.id.rvPropertyType);
         rvProperty.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        search = ExploreView.findViewById(R.id.searchBtn);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return ExploreView;
     }

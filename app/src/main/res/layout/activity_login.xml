@@ -22,45 +22,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
-    <ImageView
-        android:id="@+id/logoLogIn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:transitionName="logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/heart" />
-
-    <TextView
-        android:id="@+id/sloganLogIn"
-        android:layout_width="370dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/bungee"
-        android:text="Home is not a place, It’s a feeling"
-        android:textColor="@color/redplus"
-        android:textSize="30dp"
-        android:transitionName="slogan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
-
-    <TextView
-        android:id="@+id/textLogIn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/antic"
-        android:text="Log in to continute"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:transitionName="text"
-        app:layout_constraintStart_toStartOf="@+id/sloganLogIn"
-        app:layout_constraintTop_toBottomOf="@+id/sloganLogIn" />
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logoLogIn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:transitionName="logo"
+            app:srcCompat="@drawable/heart" />
+
+        <TextView
+            android:id="@+id/sloganLogIn"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:fontFamily="@font/bungee"
+            android:text="Home is not a place, It’s a feeling"
+            android:textColor="@color/redplus"
+            android:layout_marginStart="24dp"
+            android:textSize="30dp"
+            android:layout_marginBottom="8dp"
+            android:transitionName="slogan"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
+
+        <TextView
+            android:id="@+id/textLogIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/antic"
+            android:text="Log in to continute"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_marginStart="24dp"
+            android:transitionName="text" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"

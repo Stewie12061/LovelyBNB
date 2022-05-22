@@ -1,61 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".SignupActivit">
 
+
     <LinearLayout
-        android:layout_width="414dp"
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
         android:layout_height="222dp"
         android:background="@drawable/rounded_bottom"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/logoSignUp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:transitionName="logo"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/heart" />
-
-    <TextView
-        android:id="@+id/sloganSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="95dp"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="615dp"
-        android:fontFamily="@font/bungee"
-        android:text="Sign up to start your Journey with us"
-        android:textAlignment="textEnd"
-        android:textColor="@color/redplus"
-        android:textSize="30dp"
-        android:transitionName="slogan"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:id="@+id/textSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/antic"
-        android:text="Please make sure your information is correct"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:transitionName="text"
-        app:layout_constraintEnd_toEndOf="@+id/sloganSignUp"
-        app:layout_constraintTop_toBottomOf="@+id/sloganSignUp" />
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/logoSignUp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:transitionName="logo"
+            android:layout_gravity="end"
+            app:srcCompat="@drawable/heart" />
+
+        <TextView
+            android:id="@+id/sloganSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:fontFamily="@font/bungee"
+            android:text="Sign up to start your Journey"
+            android:textAlignment="textEnd"
+            android:textColor="@color/redplus"
+            android:textSize="30dp"
+            android:layout_marginBottom="8dp"
+            android:transitionName="slogan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/antic"
+            android:layout_gravity="end"
+            android:text="Please make sure your information is correct"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:transitionName="text" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -228,3 +239,4 @@
    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

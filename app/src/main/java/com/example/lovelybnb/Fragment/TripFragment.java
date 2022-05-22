@@ -1,5 +1,6 @@
 package com.example.lovelybnb.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lovelybnb.Adapter.InspireViewHolder;
 import com.example.lovelybnb.Adapter.TripViewHolder;
 import com.example.lovelybnb.Data.Receipt;
+import com.example.lovelybnb.ItemClickListener;
 import com.example.lovelybnb.R;
+import com.example.lovelybnb.ReceiptActivity;
+import com.example.lovelybnb.SearchActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +40,7 @@ public class TripFragment extends Fragment {
     RecyclerView rvTrip;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    FirebaseRecyclerAdapter<Receipt, TripViewHolder> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +80,7 @@ public class TripFragment extends Fragment {
         String currentUserId = firebaseUser.getUid();
         FirebaseRecyclerOptions<Receipt> options = new FirebaseRecyclerOptions.Builder<Receipt>().setQuery(receiptRef.child(currentUserId),Receipt.class).build();
 
-        FirebaseRecyclerAdapter<Receipt, TripViewHolder> adapter = new FirebaseRecyclerAdapter<Receipt, TripViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Receipt, TripViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull TripViewHolder holder, int position, @NonNull Receipt model) {
                 String id = getRef(position).getKey();
@@ -94,6 +99,15 @@ public class TripFragment extends Fragment {
                         holder.TripCheckIn.setText(checkinday);
                         holder.TripCheckOut.setText(checkoutday);
                         Picasso.get().load(img).into(holder.TripImg);
+
+                        holder.setItemClickListener(new ItemClickListener() {
+                            @Override
+                            public void onClick(View view, int position, boolean isLongClick) {
+                                Intent intent = new Intent(getContext(), ReceiptActivity.class);
+                                intent.putExtra("itemId", adapter.getRef(position).getKey());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @Override
