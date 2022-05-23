@@ -29,7 +29,9 @@ tools:context=".ItemDetailActivity">
         android:text="Item Name"
         android:textColor="@color/white"
         android:layout_gravity="center"
-        android:textSize="24dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="20dp"
         android:layout_marginStart="8dp"
         android:textStyle="bold"
         android:transitionName="name"
@@ -334,12 +336,18 @@ tools:context=".ItemDetailActivity">
                                     android:textColor="@color/redbnb"
                                     android:textSize="20dp"
                                     android:textStyle="bold" />
-
+                                <View
+                                    android:id="@+id/lnln2"
+                                    android:layout_width="70dp"
+                                    android:layout_height="1dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@android:color/darker_gray" />
                                 <TextView
                                     android:id="@+id/receiptCheckInTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
                                     android:fontFamily="@font/airbnb_cereal"
                                     android:gravity="start"
                                     android:text="1:00 PM"
@@ -397,12 +405,18 @@ tools:context=".ItemDetailActivity">
                                     android:textColor="@color/redbnb"
                                     android:textSize="20dp"
                                     android:textStyle="bold" />
-
+                                <View
+                                    android:id="@+id/lnln3"
+                                    android:layout_width="70dp"
+                                    android:layout_height="1dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@android:color/darker_gray" />
                                 <TextView
                                     android:id="@+id/receiptCheckOutTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
                                     android:fontFamily="@font/airbnb_cereal"
                                     android:text="12:00 AM"
                                     android:textAlignment="textEnd"
