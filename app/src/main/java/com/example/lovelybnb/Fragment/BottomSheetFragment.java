@@ -258,6 +258,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     receipt.setReceiptImg(img);
                     receipt.setReceiptContact(orderContact.getText().toString());
                     receipt.setPeopleQuantity(quantity.getText().toString());
+                    receipt.setReceiptTimeCheckin(checkinTime.getText().toString());
+                    receipt.setReceiptTimeCheckout(checkoutTime.getText().toString());
 
                     String dayOrder = checkinday.getText().toString();
 

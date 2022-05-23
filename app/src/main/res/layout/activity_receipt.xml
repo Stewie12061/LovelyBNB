@@ -128,11 +128,12 @@ tools:context=".ItemDetailActivity">
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/guest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/bungee"
-                        android:text="people"
+                        android:text="guests"
                         android:textColor="@color/redbnb"
                         android:textSize="24dp"
                         android:textStyle="bold" />
@@ -140,6 +141,7 @@ tools:context=".ItemDetailActivity">
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bungee"
@@ -228,7 +230,7 @@ tools:context=".ItemDetailActivity">
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/address"
+                        android:id="@+id/receiptAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -322,7 +324,7 @@ tools:context=".ItemDetailActivity">
                                 android:padding="8dp">
 
                                 <TextView
-                                    android:id="@+id/checkInDay"
+                                    android:id="@+id/receiptCheckInDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
@@ -334,7 +336,7 @@ tools:context=".ItemDetailActivity">
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/checkInTime"
+                                    android:id="@+id/receiptCheckInTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
@@ -385,7 +387,7 @@ tools:context=".ItemDetailActivity">
                                 android:padding="8dp">
 
                                 <TextView
-                                    android:id="@+id/checkOutDay"
+                                    android:id="@+id/receiptCheckOutDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
@@ -397,7 +399,7 @@ tools:context=".ItemDetailActivity">
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/checkOutTime"
+                                    android:id="@+id/receiptCheckOutTime"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"

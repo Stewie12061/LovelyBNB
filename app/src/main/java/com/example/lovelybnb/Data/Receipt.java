@@ -3,11 +3,11 @@ package com.example.lovelybnb.Data;
 import android.widget.ImageView;
 
 public class Receipt {
-    String peopleQuantity, receiptName, receiptPrice, receiptAddress, receiptPlace, receiptDaycheckin, receiptDaycheckout, receiptImg, dayStay, receiptContact;
+    String receiptTimeCheckin, receiptTimeCheckout, peopleQuantity, receiptName, receiptPrice, receiptAddress, receiptPlace, receiptDaycheckin, receiptDaycheckout, receiptImg, dayStay, receiptContact;
 
     public Receipt(){}
 
-    public Receipt(String peopleQuantity,String receiptContact,String receiptName, String receiptAddress, String receiptPlace, String receiptPrice, String receiptDaycheckin, String receiptDaycheckout,String receiptImg, String dayStay){
+    public Receipt(String receiptTimeCheckin, String receiptTimeCheckout, String peopleQuantity,String receiptContact,String receiptName, String receiptAddress, String receiptPlace, String receiptPrice, String receiptDaycheckin, String receiptDaycheckout,String receiptImg, String dayStay){
         this.receiptAddress = receiptAddress;
         this.receiptName = receiptName;
         this.receiptPlace = receiptPlace;
@@ -18,6 +18,24 @@ public class Receipt {
         this.dayStay = dayStay;
         this.receiptContact = receiptContact;
         this.peopleQuantity = peopleQuantity;
+        this.receiptTimeCheckin = receiptTimeCheckin;
+        this.receiptTimeCheckout = receiptTimeCheckout;
+    }
+
+    public String getReceiptTimeCheckin() {
+        return receiptTimeCheckin;
+    }
+
+    public void setReceiptTimeCheckin(String receiptTimeCheckin) {
+        this.receiptTimeCheckin = receiptTimeCheckin;
+    }
+
+    public String getReceiptTimeCheckout() {
+        return receiptTimeCheckout;
+    }
+
+    public void setReceiptTimeCheckout(String receiptTimeCheckout) {
+        this.receiptTimeCheckout = receiptTimeCheckout;
     }
 
     public String getPeopleQuantity() {
