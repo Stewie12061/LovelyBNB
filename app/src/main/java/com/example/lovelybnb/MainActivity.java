@@ -29,24 +29,34 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-
+    String idIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        display(R.id.mnuexplore);
+        idIntent = getIntent().getStringExtra("Fragment");
+
         bottomNavigationView = findViewById(R.id.bottomNav);
+
+        if (idIntent==null){
+            display(R.id.mnuexplore);
+        }else {
+            int ID = Integer.parseInt(idIntent);
+            display(ID);
+            bottomNavigationView.setSelectedItemId(ID);
+            idIntent = null;
+        }
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 display(item.getItemId());
-
                 return true;
             }
         });
+
 
 
     }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ import java.util.TimeZone;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    TextView orderPrice, totalPrice, orderAddress, orderName, orderPlace,checkinday,checkoutday, checkinTime,checkoutTime, orderContact;
+    TextView quantity, orderPrice, totalPrice, orderAddress, orderName, orderPlace,checkinday,checkoutday, checkinTime,checkoutTime, orderContact;
     ImageView orderImg;
 
     int mDayIn,mMonthIn,mYearIn, mDayOut,mMonthOut,mYearOut;
@@ -56,6 +57,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     Date dateEnd;
     String dayDifference = "";
     String img;
+    ImageButton add,minus;
+    int totalQuantity = 1;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -99,6 +102,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         itemId = getArguments().getString("itemId");
         getOrderItem();
+
 
         linearIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +166,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                             String startDay = checkinday.getText().toString();
                                             String endDay = checkoutday.getText().toString();
 
-
                                             SimpleDateFormat dates = new SimpleDateFormat("dd-MM-yyyy");
                                             dateStart = dates.parse(startDay);
                                             dateEnd = dates.parse(endDay);
@@ -210,6 +213,31 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         });
 
+
+        add = view.findViewById(R.id.btnAdd);
+        minus = view.findViewById(R.id.btnMinus);
+        quantity = view.findViewById(R.id.quantity);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalQuantity<10){
+                    totalQuantity++;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalQuantity>1){
+                    totalQuantity--;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
+
         Receipt receipt = new Receipt();
 
         orderBtn.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +257,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     receipt.setDayStay(dayDifference);
                     receipt.setReceiptImg(img);
                     receipt.setReceiptContact(orderContact.getText().toString());
+                    receipt.setPeopleQuantity(quantity.getText().toString());
 
                     String dayOrder = checkinday.getText().toString();
 
@@ -238,6 +267,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                             Toast.makeText(getContext(),"Request reservation successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            int idTrip = R.id.mnuTrip;
+                            String IDtrip = Integer.toString(idTrip);
+                            intent.putExtra("Fragment",IDtrip);
                             startActivity(intent);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
