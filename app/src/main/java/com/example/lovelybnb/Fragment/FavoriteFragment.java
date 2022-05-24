@@ -40,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,7 @@ public class FavoriteFragment extends Fragment {
     FirebaseRecyclerAdapter<Favorite, FavoriteViewHolder> adapter;
     String currentUserId;
     ArrayList<String> arrayList = null;
+    SparkButton sparkButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,7 @@ public class FavoriteFragment extends Fragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = user.getUid();
+        sparkButton = view.findViewById(R.id.favFav);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         userRef = firebaseDatabase.getReference("Registered users");
@@ -161,6 +164,7 @@ public class FavoriteFragment extends Fragment {
                         holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
                                     userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

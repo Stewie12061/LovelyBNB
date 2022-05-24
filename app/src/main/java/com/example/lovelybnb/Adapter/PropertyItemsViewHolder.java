@@ -73,10 +73,8 @@ public class PropertyItemsViewHolder extends RecyclerView.ViewHolder implements 
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
                             sparkButton.setChecked(true);
-                            sparkButton.playAnimation();
                         }else {
                             sparkButton.setChecked(false);
-                            sparkButton.playAnimation();
                         }
                     }
 

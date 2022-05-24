@@ -54,10 +54,8 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
                             sparkButton.setChecked(true);
-                            sparkButton.playAnimation();
                         }else {
                             sparkButton.setChecked(false);
-                            sparkButton.playAnimation();
                         }
                     }
 

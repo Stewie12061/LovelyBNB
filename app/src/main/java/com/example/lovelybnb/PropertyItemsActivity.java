@@ -198,6 +198,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                         holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
                                     userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -302,6 +303,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                         holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
                                     userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -3,6 +3,7 @@ package com.example.lovelybnb;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.lovelybnb.Data.Favorite;
 import com.example.lovelybnb.Fragment.BottomSheetFragment;
@@ -173,6 +175,14 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     slideModelArrayList.add(new SlideModel(dataSnapshot.child("url").getValue().toString(),ScaleTypes.CENTER_CROP));
                     imageSlider.setImageList(slideModelArrayList, ScaleTypes.CENTER_CROP);
+                    imageSlider.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemSelected(int i) {
+                            Intent intent = new Intent(getApplicationContext(),ImageDetailActivity.class);
+                            intent.putExtra("itemId",itemId);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
@@ -214,6 +224,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                 sparkButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        sparkButton.playAnimation();
                         if (isInMyFavorite){
                             userRef.child(currentUserId).child("Favorites").child(itemId).removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -255,10 +266,8 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
                             sparkButton.setChecked(true);
-                            sparkButton.playAnimation();
                         }else {
                             sparkButton.setChecked(false);
-                            sparkButton.playAnimation();
                         }
                     }
 
