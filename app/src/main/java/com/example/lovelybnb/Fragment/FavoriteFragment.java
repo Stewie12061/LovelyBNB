@@ -151,14 +151,14 @@ public class FavoriteFragment extends Fragment {
                                 pairs[2] = new Pair<View,String>(holder.FavoritePrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.FavoritePlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.FavoriteRating, "rating");
-                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
+                                pairs[5] = new Pair<View,String>(holder.sparkButton,"fav");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pairs);
                                 startActivity(intent, options.toBundle());
                             }
                         });
 
                         holder.favoriteCheck(postKey);
-                        holder.fav.setOnClickListener(new View.OnClickListener() {
+                        holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (holder.isInMyFavorite){

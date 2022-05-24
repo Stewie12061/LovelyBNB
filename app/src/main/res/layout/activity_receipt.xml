@@ -24,7 +24,7 @@ tools:context=".ItemDetailActivity">
     <TextView
         android:id="@+id/receiptName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fontFamily="@font/airbnb_cereal"
         android:text="Item Name"
         android:textColor="@color/white"
@@ -32,6 +32,7 @@ tools:context=".ItemDetailActivity">
         android:layout_weight="1"
         android:gravity="center"
         android:textSize="20dp"
+        android:ellipsize="end"
         android:layout_marginStart="8dp"
         android:textStyle="bold"
         android:transitionName="name"

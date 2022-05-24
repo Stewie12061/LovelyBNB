@@ -24,12 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
 
 public class PropertyItemsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public TextView PropertyItemName, PropertyItemPlace, PropertyItemPrice, PropertyItemRating ;
     public ImageView PropertyItemImg;
-    public Button fav;
+    public SparkButton sparkButton;
     public DatabaseReference userRef;
     public FirebaseDatabase firebaseDatabase;
     public Boolean isInMyFavorite = false;
@@ -44,7 +45,7 @@ public class PropertyItemsViewHolder extends RecyclerView.ViewHolder implements 
         PropertyItemRating = itemView.findViewById(R.id.itemRating);
         PropertyItemPrice = itemView.findViewById(R.id.itemPrice);
         PropertyItemImg = itemView.findViewById(R.id.propertyItemImg);
-        fav = itemView.findViewById(R.id.Fav);
+        sparkButton = itemView.findViewById(R.id.Fav);
         itemView.setOnClickListener(this);
 
 
@@ -58,7 +59,7 @@ public class PropertyItemsViewHolder extends RecyclerView.ViewHolder implements 
     }
 
     public void favoriteCheck(String postKey) {
-        fav = itemView.findViewById(R.id.Fav);
+        sparkButton = itemView.findViewById(R.id.Fav);
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         userRef = firebaseDatabase.getReference("Registered users");
 
@@ -71,9 +72,11 @@ public class PropertyItemsViewHolder extends RecyclerView.ViewHolder implements 
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
-                            fav.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_red,0,0);
+                            sparkButton.setChecked(true);
+                            sparkButton.playAnimation();
                         }else {
-                            fav.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_white,0,0);
+                            sparkButton.setChecked(false);
+                            sparkButton.playAnimation();
                         }
                     }
 

@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,13 +56,13 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
     ImageView hostAvatar;
 
     ImageSlider imageSlider;
-    Button fav, opensheet;
+    Button opensheet;
     Boolean isInMyFavorite = false;
     Favorite favorite;
     private GoogleMap mMap;
     Geocoder geocoder;
 
-
+    SparkButton sparkButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         detailItemPlace = findViewById(R.id.detailItemPlace);
         detailItemPrice = findViewById(R.id.detailItemPrice);
         detailItemRating = findViewById(R.id.detailItemRating);
-        fav = findViewById(R.id.favItemDetail);
+        sparkButton = findViewById(R.id.spark_button);
 
         hostEmail = findViewById(R.id.hostEmail);
         hostAvatar = findViewById(R.id.hostAvatar);
@@ -210,7 +211,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                 favorite.setfavoritePlace(Place);
                 favorite.setfavoriteImage(Image);
 
-                fav.setOnClickListener(new View.OnClickListener() {
+                sparkButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (isInMyFavorite){
@@ -253,9 +254,11 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
-                            fav.setBackgroundResource(R.drawable.ic_favorite_red);
+                            sparkButton.setChecked(true);
+                            sparkButton.playAnimation();
                         }else {
-                            fav.setBackgroundResource(R.drawable.ic_favorite_white);
+                            sparkButton.setChecked(false);
+                            sparkButton.playAnimation();
                         }
                     }
 

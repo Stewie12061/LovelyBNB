@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.varunest.sparkbutton.SparkButton;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
     Boolean isInMyFavorite = false;
     private FirebaseAuth firebaseAuth;
     String itemId;
-    Button fav;
+    SparkButton sparkButton;
     Favorite favorite;
     String key = "4";
     ArrayList<String> arrayList = null;
@@ -91,7 +92,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        fav = findViewById(R.id.Fav);
+        sparkButton = findViewById(R.id.Fav);
 
     }
 
@@ -184,7 +185,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                 pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
-                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
+                                pairs[5] = new Pair<View,String>(holder.sparkButton,"fav");
 
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
                                 startActivity(intent, options.toBundle());
@@ -194,7 +195,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
                         holder.favoriteCheck(postKey);
 
-                        holder.fav.setOnClickListener(new View.OnClickListener() {
+                        holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (holder.isInMyFavorite){
@@ -289,7 +290,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                 pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
                                 pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
                                 pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
-                                pairs[5] = new Pair<View,String>(holder.fav,"fav");
+                                pairs[5] = new Pair<View,String>(holder.sparkButton,"fav");
 
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
                                 startActivity(intent, options.toBundle());
@@ -298,7 +299,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
                         holder.favoriteCheck(postKey);
 
-                        holder.fav.setOnClickListener(new View.OnClickListener() {
+                        holder.sparkButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (holder.isInMyFavorite){

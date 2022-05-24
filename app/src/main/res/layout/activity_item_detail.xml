@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/black"
+        android:clipToPadding="false"
+        android:clipChildren="false"
         android:orientation="horizontal">
 
         <TextView
@@ -27,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_rounded_white"
             android:drawableStart="@drawable/star"
             android:drawablePadding="5dp"
@@ -40,14 +42,18 @@
             android:textSize="18dp"
             android:transitionName="rating" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/favItemDetail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
+        <com.varunest.sparkbutton.SparkButton
+            android:id="@+id/spark_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_favorite_white"
-            android:transitionName="fav" />
+            app:sparkbutton_animationSpeed="1.5"
+            android:layout_gravity="center"
+            app:sparkbutton_activeImage="@drawable/ic_favorite_red"
+            app:sparkbutton_inActiveImage="@drawable/ic_favorite_white"
+            app:sparkbutton_iconSize="40dp"
+            app:sparkbutton_primaryColor="@color/redbnb"
+            app:sparkbutton_secondaryColor="@color/white" />
 
 
     </LinearLayout>

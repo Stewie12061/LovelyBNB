@@ -17,11 +17,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.varunest.sparkbutton.SparkButton;
 
 public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView FavoriteName, FavoritePlace, FavoritePrice, FavoriteRating ;
     public ImageView FavoriteImg;
-    public Button fav;
+    public SparkButton sparkButton;
     public DatabaseReference userRef;
     public FirebaseDatabase firebaseDatabase;
     public boolean isInMyFavorite = false;
@@ -35,7 +36,7 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.
         FavoriteRating = itemView.findViewById(R.id.favoriteRating);
         FavoritePrice = itemView.findViewById(R.id.favoriteRating);
         FavoriteImg = itemView.findViewById(R.id.favoriteImg);
-        fav = itemView.findViewById(R.id.favFav);
+        sparkButton = itemView.findViewById(R.id.favFav);
         itemView.setOnClickListener(this);
     }
 
@@ -52,9 +53,11 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         isInMyFavorite = snapshot.exists();
                         if (isInMyFavorite){
-                            fav.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_red,0,0);
+                            sparkButton.setChecked(true);
+                            sparkButton.playAnimation();
                         }else {
-                            fav.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_white,0,0);
+                            sparkButton.setChecked(false);
+                            sparkButton.playAnimation();
                         }
                     }
 
