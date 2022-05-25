@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,6 +101,14 @@ public class ReceiptActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     slideModelArrayList.add(new SlideModel(dataSnapshot.child("url").getValue().toString(), ScaleTypes.CENTER_CROP));
                     imageSlider.setImageList(slideModelArrayList, ScaleTypes.CENTER_CROP);
+                    imageSlider.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onItemSelected(int i) {
+                            Intent intent = new Intent(getApplicationContext(),ImageDetailActivity.class);
+                            intent.putExtra("itemId",itemId);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 

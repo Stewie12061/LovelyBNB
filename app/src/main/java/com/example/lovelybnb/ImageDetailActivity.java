@@ -2,6 +2,8 @@ package com.example.lovelybnb;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -40,10 +42,9 @@ public class ImageDetailActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         sliderRef = firebaseDatabase.getReference("Slider");
         itemId = getIntent().getStringExtra("itemId");
-        Toast.makeText(getApplicationContext(),itemId,Toast.LENGTH_SHORT).show();
 
         rvImage = findViewById(R.id.rvImageDetail);
-        rvImage.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        rvImage.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
 
         goback = findViewById(R.id.backprevious);
         goback.setOnClickListener(new View.OnClickListener() {

@@ -3,9 +3,11 @@ package com.example.lovelybnb.Fragment;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import com.example.lovelybnb.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,8 +51,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     int mDayIn,mMonthIn,mYearIn, mDayOut,mMonthOut,mYearOut;
     int priceint, fullprice;
-    String itemId;
-    LinearLayout linearOut, linearIn;
+    String itemId, currentUserId;
+    LinearLayout linearOut, linearIn, lnCalender;
     Button orderBtn;
 
     FirebaseDatabase firebaseDatabase;
@@ -59,6 +63,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     String img;
     ImageButton add,minus;
     int totalQuantity = 1;
+    Receipt receipt;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -80,7 +85,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         userRef = firebaseDatabase.getReference("Registered users");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUserId = user.getUid();
+        currentUserId = user.getUid();
 
         orderName = view.findViewById(R.id.orderItemName);
         orderPrice = view.findViewById(R.id.orderItemPrice);
@@ -92,6 +97,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         orderImg = view.findViewById(R.id.orderItemImg);
         linearIn = view.findViewById(R.id.LinearIn);
         linearOut = view.findViewById(R.id.LinearOut);
+//        lnCalender = view.findViewById(R.id.lnCalender);
 
         orderBtn = view.findViewById(R.id.placeOrder);
         checkinTime = view.findViewById(R.id.checkInTime);
@@ -212,40 +218,51 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
 
         });
+        getCalender();
 
 
         add = view.findViewById(R.id.btnAdd);
         minus = view.findViewById(R.id.btnMinus);
         quantity = view.findViewById(R.id.quantity);
+        getHowManyPeople();
 
-        add.setOnClickListener(new View.OnClickListener() {
+        receipt = new Receipt();
+        startOrder();
+
+
+
+
+
+
+        return view;
+    }
+
+    private void getCalender() {
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.dateRangePicker()
+                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                        MaterialDatePicker.todayInUtcMilliseconds())).build();
+
+        lnCalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (totalQuantity<10){
-                    totalQuantity++;
-                    quantity.setText(String.valueOf(totalQuantity));
-                }
+                datePicker.show(getParentFragmentManager(),"Material_Range");
+                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+
+                    }
+                });
             }
         });
+    }
 
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (totalQuantity>1){
-                    totalQuantity--;
-                    quantity.setText(String.valueOf(totalQuantity));
-                }
-            }
-        });
-
-        Receipt receipt = new Receipt();
-
+    private void startOrder() {
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (dayDifference.isEmpty()){
-                Toast.makeText(getContext(), "You have to choose check in and check out day", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "You have to choose check in and check out day", Toast.LENGTH_SHORT).show();
                 }else {
 
                     receipt.setReceiptAddress(orderAddress.getText().toString());
@@ -284,9 +301,28 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
             }
         });
+    }
 
+    private void getHowManyPeople() {
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalQuantity<10){
+                    totalQuantity++;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
 
-        return view;
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (totalQuantity>1){
+                    totalQuantity--;
+                    quantity.setText(String.valueOf(totalQuantity));
+                }
+            }
+        });
     }
 
     private void getOrderItem() {

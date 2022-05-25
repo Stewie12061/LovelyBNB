@@ -2,6 +2,7 @@ package com.example.lovelybnb;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SearchActivity extends AppCompatActivity {
     TextView goback;
     SearchView searchView;
+    RecyclerView rvSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
