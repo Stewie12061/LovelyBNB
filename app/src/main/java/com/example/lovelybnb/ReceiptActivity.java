@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,13 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,16 +32,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class ReceiptActivity extends AppCompatActivity {
+public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCallback {
     TextView guest, day, receiptName, receiptTimeCheckin, receiptTimecheckout, receiptPrice, goback, dayStay, peopleQuantity, receiptAddress, receiptPlace, receiptContact, receiptDaycheckin, receiptDaycheckout ;
     Button Cancel;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userRef,sliderRef;
     String itemId, currentUserId;
     ImageSlider imageSlider;
+    private GoogleMap mMap;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +55,10 @@ public class ReceiptActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         userRef = firebaseDatabase.getReference("Registered users");
         sliderRef = firebaseDatabase.getReference("Slider");
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(ReceiptActivity.this);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = user.getUid();
@@ -154,6 +171,45 @@ public class ReceiptActivity extends AppCompatActivity {
                 if (guestint==1){
                     guest.setText("GUEST");
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addressList = null;
+
+        userRef.child(currentUserId).child("Trip").child(itemId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String ItemAddress = snapshot.child("receiptAddress").getValue().toString();
+
+                try {
+                    List<Address> addressList = geocoder.getFromLocationName(ItemAddress,1);
+
+                    if (addressList != null && addressList.size() > 0){
+                        Address address = addressList.get(0);
+
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(ItemAddress).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                        mMap.getUiSettings().setZoomControlsEnabled(true);
+                    }
+                    else {
+                        Toast.makeText(ReceiptActivity.this, "Can't find location",Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override

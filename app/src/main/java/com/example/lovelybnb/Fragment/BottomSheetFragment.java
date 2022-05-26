@@ -97,7 +97,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         orderImg = view.findViewById(R.id.orderItemImg);
         linearIn = view.findViewById(R.id.LinearIn);
         linearOut = view.findViewById(R.id.LinearOut);
-//        lnCalender = view.findViewById(R.id.lnCalender);
 
         orderBtn = view.findViewById(R.id.placeOrder);
         checkinTime = view.findViewById(R.id.checkInTime);
@@ -108,7 +107,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         itemId = getArguments().getString("itemId");
         getOrderItem();
-
 
         linearIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +130,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                 checkinday.setText(mDayIn + "-" + (mMonthIn+1) + "-" + mYearIn);
                             }
                         }, mDayIn, mMonthIn, mYearIn);
-
-
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
                 final Calendar calendar2 = Calendar.getInstance();
@@ -194,19 +190,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                                         }catch (Exception e) {
                                             e.printStackTrace();
-
                                         }
-
-
-
                                 }
                             }, mDayOut, mMonthOut, mYearOut);
-
 
                     final Calendar calendar2 = Calendar.getInstance();
                     calendar2.set(mYearIn, mMonthIn, mDayIn + 1);
                     datePickerDialog.getDatePicker().setMinDate(calendar2.getTimeInMillis());
-
 
                     final Calendar calendar3 = Calendar.getInstance();
                     calendar3.set(2023, 1, 1);
@@ -218,8 +208,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
 
         });
-        getCalender();
-
 
         add = view.findViewById(R.id.btnAdd);
         minus = view.findViewById(R.id.btnMinus);
@@ -229,31 +217,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         receipt = new Receipt();
         startOrder();
 
-
-
-
-
-
         return view;
-    }
-
-    private void getCalender() {
-        MaterialDatePicker datePicker = MaterialDatePicker.Builder.dateRangePicker()
-                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
-                        MaterialDatePicker.todayInUtcMilliseconds())).build();
-
-        lnCalender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePicker.show(getParentFragmentManager(),"Material_Range");
-                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Object selection) {
-
-                    }
-                });
-            }
-        });
     }
 
     private void startOrder() {

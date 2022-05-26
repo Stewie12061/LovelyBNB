@@ -317,8 +317,6 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
             }
         });
 
-
-
     }
 
 }
