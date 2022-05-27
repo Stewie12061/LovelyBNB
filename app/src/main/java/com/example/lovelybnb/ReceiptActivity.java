@@ -41,7 +41,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
     TextView guest, day, receiptName, receiptTimeCheckin, receiptTimecheckout, receiptPrice, goback, dayStay, peopleQuantity, receiptAddress, receiptPlace, receiptContact, receiptDaycheckin, receiptDaycheckout ;
     Button Cancel;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef,sliderRef;
+    DatabaseReference sliderRef, receiptRef;
     String itemId, currentUserId;
     ImageSlider imageSlider;
     private GoogleMap mMap;
@@ -53,8 +53,8 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_receipt);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
-        userRef = firebaseDatabase.getReference("Registered users");
         sliderRef = firebaseDatabase.getReference("Slider");
+        receiptRef = firebaseDatabase.getReference("Receipt");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -90,7 +90,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userRef.child(currentUserId).child("Trip").child(itemId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                receiptRef.child(currentUserId).child(itemId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(),"Cancel reservation",Toast.LENGTH_SHORT).show();
@@ -136,7 +136,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         });
     }
     private void getReceiptData() {
-        userRef.child(currentUserId).child("Trip").child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
+        receiptRef.child(currentUserId).child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String daystay = snapshot.child("dayStay").getValue().toString();
@@ -186,7 +186,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addressList = null;
 
-        userRef.child(currentUserId).child("Trip").child(itemId).addValueEventListener(new ValueEventListener() {
+        receiptRef.child(currentUserId).child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String ItemAddress = snapshot.child("receiptAddress").getValue().toString();

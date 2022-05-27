@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 
 public class TripFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
+    DatabaseReference receiptRef;
     RecyclerView rvTrip;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -60,7 +60,7 @@ public class TripFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
-        userRef = firebaseDatabase.getReference("Registered users");
+        receiptRef = firebaseDatabase.getReference("Receipt");
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -88,7 +88,7 @@ public class TripFragment extends Fragment {
 
     private void getTripData() {
         String currentUserId = firebaseUser.getUid();
-        Query query = userRef.child(currentUserId).child("Trip");
+        Query query = receiptRef.child(currentUserId);
         FirebaseRecyclerOptions<Receipt> options = new FirebaseRecyclerOptions.Builder<Receipt>().setQuery(query,Receipt.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Receipt, TripViewHolder>(options) {
@@ -96,7 +96,7 @@ public class TripFragment extends Fragment {
             protected void onBindViewHolder(@NonNull TripViewHolder holder, int position, @NonNull Receipt model) {
                 String id = getRef(position).getKey();
 
-                userRef.child(currentUserId).child("Trip").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                receiptRef.child(currentUserId).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String name = snapshot.child("receiptName").getValue().toString();

@@ -9,11 +9,17 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +45,7 @@ import java.util.ArrayList;
 public class PropertyItemsActivity extends AppCompatActivity {
     private RecyclerView rvPropertyItems;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference, userRef;
+    private DatabaseReference databaseReference, favoriteRef;
 
     String categoryId;
     String propertyName;
@@ -66,7 +72,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("Items");
-        userRef = firebaseDatabase.getReference("Registered users");
+        favoriteRef = firebaseDatabase.getReference("Favorite");
 
         //get key from receipt
 
@@ -200,11 +206,21 @@ public class PropertyItemsActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
-                                    userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
+                                    favoriteRef.child(currentUserId).child(postKey).removeValue()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(PropertyItemsActivity.this, "Removed from favorite list", Toast.LENGTH_SHORT).show();
+                                                    //make Toast text center
+                                                    String text = "Remove"+" "+Name+" "+"from favorite list";
+                                                    Spannable centeredText = new SpannableString(text);
+                                                    centeredText.setSpan(
+                                                            new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                            0, text.length() - 1,
+                                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                                    );
+
+                                                    Toast.makeText(PropertyItemsActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(PropertyItemsActivity.this, "Remove"+" "+Name+" "+"from favorite list", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }else {
@@ -213,11 +229,20 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                     favorite.setfavoriteRating(Rating);
                                     favorite.setfavoritePlace(Place);
                                     favorite.setfavoriteImage(Image);
-                                    userRef.child(currentUserId).child("Favorites").child(postKey).setValue(favorite)
+                                    favoriteRef.child(currentUserId).child(postKey).setValue(favorite)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(PropertyItemsActivity.this, "Added to favorite list", Toast.LENGTH_SHORT).show();
+                                                    String text = "Add"+" "+Name+" "+"to favorite list";
+                                                    Spannable centeredText = new SpannableString(text);
+                                                    centeredText.setSpan(
+                                                            new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                            0, text.length() - 1,
+                                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                                    );
+
+                                                    Toast.makeText(PropertyItemsActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(PropertyItemsActivity.this, "Add"+" "+Name+" "+"to favorite list", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }
@@ -305,11 +330,20 @@ public class PropertyItemsActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
-                                    userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
+                                    favoriteRef.child(currentUserId).child(postKey).removeValue()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(PropertyItemsActivity.this, "Removed from favorite list", Toast.LENGTH_SHORT).show();
+                                                    String text = "Remove"+" "+Name+" "+"from favorite list";
+                                                    Spannable centeredText = new SpannableString(text);
+                                                    centeredText.setSpan(
+                                                            new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                            0, text.length() - 1,
+                                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                                    );
+
+                                                    Toast.makeText(PropertyItemsActivity.this, centeredText, Toast.LENGTH_LONG).show();
+//                                                    Toast.makeText(PropertyItemsActivity.this, "Remove"+" "+Name+" "+"from favorite list", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }else {
@@ -319,11 +353,20 @@ public class PropertyItemsActivity extends AppCompatActivity {
                                     favorite.setfavoritePlace(Place);
                                     favorite.setfavoriteImage(Image);
 
-                                    userRef.child(currentUserId).child("Favorites").child(postKey).setValue(favorite)
+                                    favoriteRef.child(currentUserId).child(postKey).setValue(favorite)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(PropertyItemsActivity.this, "Added to favorite list", Toast.LENGTH_SHORT).show();
+                                                    String text = "Add"+" "+Name+" "+"to favorite list";
+                                                    Spannable centeredText = new SpannableString(text);
+                                                    centeredText.setSpan(
+                                                            new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                            0, text.length() - 1,
+                                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                                    );
+
+                                                    Toast.makeText(PropertyItemsActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(PropertyItemsActivity.this, "Add"+" "+Name+" "+"to favorite list", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }

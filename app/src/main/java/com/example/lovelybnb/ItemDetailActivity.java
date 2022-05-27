@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,7 +56,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
     String itemId;
     String currentUserId;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference detailRef, sliderRef, userRef, hostRef;
+    DatabaseReference detailRef, sliderRef, favoriteRef, hostRef;
     TextView goback;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     ImageView hostAvatar;
@@ -81,7 +85,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         detailRef = firebaseDatabase.getReference("Items");
         sliderRef = firebaseDatabase.getReference("Slider");
-        userRef = firebaseDatabase.getReference("Registered users");
+        favoriteRef = firebaseDatabase.getReference("Favorite");
         hostRef = firebaseDatabase.getReference("Item Detail");
 
         detailItemDes = findViewById(R.id.detailItemDes);
@@ -226,19 +230,37 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                     public void onClick(View v) {
                         sparkButton.playAnimation();
                         if (isInMyFavorite){
-                            userRef.child(currentUserId).child("Favorites").child(itemId).removeValue()
+                            favoriteRef.child(currentUserId).child(itemId).removeValue()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Toast.makeText(ItemDetailActivity.this, "Removed from favorite list", Toast.LENGTH_SHORT).show();
+                                            String text = "Remove"+" "+Name+" "+"from favorite list";
+                                            Spannable centeredText = new SpannableString(text);
+                                            centeredText.setSpan(
+                                                    new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                    0, text.length() - 1,
+                                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                            );
+
+                                            Toast.makeText(ItemDetailActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(ItemDetailActivity.this, "Removed from favorite list", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }else {
-                            userRef.child(currentUserId).child("Favorites").child(itemId).setValue(favorite)
+                            favoriteRef.child(currentUserId).child(itemId).setValue(favorite)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Toast.makeText(ItemDetailActivity.this, "Added to favorite list", Toast.LENGTH_SHORT).show();
+                                            String text = "Add"+" "+Name+" "+"to favorite list";
+                                            Spannable centeredText = new SpannableString(text);
+                                            centeredText.setSpan(
+                                                    new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                    0, text.length() - 1,
+                                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                            );
+
+                                            Toast.makeText(ItemDetailActivity.this, centeredText, Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(ItemDetailActivity.this, "Added to favorite list", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }
@@ -259,7 +281,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String userId = user.getUid();
 
-        userRef.child(userId).child("Favorites").child(itemId)
+        favoriteRef.child(userId).child(itemId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

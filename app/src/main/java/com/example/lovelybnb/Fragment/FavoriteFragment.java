@@ -5,6 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +52,7 @@ import java.util.ArrayList;
 public class FavoriteFragment extends Fragment {
     RecyclerView rvFavorite;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
+    DatabaseReference favoriteRef;
     Boolean favoriteChecker = false;
     FirebaseRecyclerAdapter<Favorite, FavoriteViewHolder> adapter;
     String currentUserId;
@@ -75,7 +79,7 @@ public class FavoriteFragment extends Fragment {
         sparkButton = view.findViewById(R.id.favFav);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
-        userRef = firebaseDatabase.getReference("Registered users");
+        favoriteRef = firebaseDatabase.getReference("Favorite");
 
         getReceiptKey();
         getDataFavorite();
@@ -110,7 +114,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void getDataFavorite() {
-        Query query = userRef.child(currentUserId).child("Favorites");
+        Query query = favoriteRef.child(currentUserId);
 
         FirebaseRecyclerOptions<Favorite> options = new FirebaseRecyclerOptions.Builder<Favorite>().setQuery(query,Favorite.class).build();
 
@@ -127,7 +131,7 @@ public class FavoriteFragment extends Fragment {
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
                 }
 
-                userRef.child(currentUserId).child("Favorites").child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                favoriteRef.child(currentUserId).child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -166,11 +170,20 @@ public class FavoriteFragment extends Fragment {
                             public void onClick(View v) {
                                 holder.sparkButton.playAnimation();
                                 if (holder.isInMyFavorite){
-                                    userRef.child(currentUserId).child("Favorites").child(postKey).removeValue()
+                                    favoriteRef.child(currentUserId).child(postKey).removeValue()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Toast.makeText(getContext(), "Removed from favorite list", Toast.LENGTH_SHORT).show();
+                                            String text = "Remove"+" "+Name+" "+"from favorite list";
+                                            Spannable centeredText = new SpannableString(text);
+                                            centeredText.setSpan(
+                                                    new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                                                    0, text.length() - 1,
+                                                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                            );
+
+                                            Toast.makeText(getContext(), centeredText, Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getContext(), "Removed from favorite list", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }

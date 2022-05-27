@@ -56,7 +56,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     Button orderBtn;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference detailRef, hostRef, userRef;
+    DatabaseReference detailRef, hostRef, receiptRef;
     Date dateStart;
     Date dateEnd;
     String dayDifference = "";
@@ -82,7 +82,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         detailRef = firebaseDatabase.getReference("Items");
         hostRef = firebaseDatabase.getReference("Item Detail");
-        userRef = firebaseDatabase.getReference("Registered users");
+        receiptRef = firebaseDatabase.getReference("Receipt");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = user.getUid();
@@ -244,15 +244,18 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                     String dayOrder = checkinday.getText().toString();
 
-                    userRef.child(currentUserId).child("Trip").child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    receiptRef.child(currentUserId).child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(getContext(),"Request reservation successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), MainActivity.class);
+
+                            //call trip fragment
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             int idTrip = R.id.mnuTrip;
                             String IDtrip = Integer.toString(idTrip);
                             intent.putExtra("Fragment",IDtrip);
+
                             startActivity(intent);
                         }
                     }).addOnFailureListener(new OnFailureListener() {

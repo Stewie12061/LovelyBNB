@@ -23,7 +23,7 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.
     public TextView FavoriteName, FavoritePlace, FavoritePrice, FavoriteRating ;
     public ImageView FavoriteImg;
     public SparkButton sparkButton;
-    public DatabaseReference userRef;
+    public DatabaseReference favoriteRef;
     public FirebaseDatabase firebaseDatabase;
     public boolean isInMyFavorite = false;
     private ItemClickListener itemClickListener;
@@ -42,12 +42,12 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.
 
     public void favoriteCheck(String postKey) {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
-        userRef = firebaseDatabase.getReference("Registered users");
+        favoriteRef = firebaseDatabase.getReference("Favorite");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
-        userRef.child(userId).child("Favorites").child(postKey)
+        favoriteRef.child(userId).child(postKey)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
