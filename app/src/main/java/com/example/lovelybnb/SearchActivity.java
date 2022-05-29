@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.lovelybnb.Adapter.PropertyItemsViewHolder;
 import com.example.lovelybnb.Data.Favorite;
 import com.example.lovelybnb.Data.PropertyItems;
@@ -50,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<PropertyItems,PropertyItemsViewHolder> adapter;
     ArrayList<String> arrayList = null;
     Favorite favorite;
+    LottieAnimationView searchWaiting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,23 @@ public class SearchActivity extends AppCompatActivity {
 
         rvSearch.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
 
+        searchWaiting = findViewById(R.id.searchWaiting);
         searchView = toolbar.findViewById(R.id.searchView);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchWaiting.setVisibility(View.INVISIBLE);
+                rvSearch.setVisibility(View.VISIBLE);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchWaiting.setVisibility(View.VISIBLE);
+                rvSearch.setVisibility(View.INVISIBLE);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -82,6 +100,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                loadDataSearch(query);
                 return false;
             }
 
