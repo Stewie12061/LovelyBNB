@@ -52,12 +52,8 @@ public class PropertyItemsActivity extends AppCompatActivity {
     String propertyPlace;
     private TextView goback, propertyNameItem;
 
-    Boolean isInMyFavorite = false;
-    private FirebaseAuth firebaseAuth;
-    String itemId;
     SparkButton sparkButton;
     Favorite favorite;
-    String key = "4";
     ArrayList<String> arrayList = null;
 
     FirebaseRecyclerAdapter<PropertyItems, PropertyItemsViewHolder> adapter;

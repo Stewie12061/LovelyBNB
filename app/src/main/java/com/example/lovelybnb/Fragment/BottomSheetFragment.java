@@ -1,6 +1,8 @@
 package com.example.lovelybnb.Fragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -252,7 +254,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                             //call trip fragment
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            int idTrip = R.id.mnuTrip;
+                            int idTrip = 3;
                             String IDtrip = Integer.toString(idTrip);
                             intent.putExtra("Fragment",IDtrip);
 

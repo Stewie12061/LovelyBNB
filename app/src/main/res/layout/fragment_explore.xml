@@ -115,28 +115,30 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
-
-                                <ImageView
+                                <com.airbnb.lottie.LottieAnimationView
                                     android:id="@+id/img"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"
+                                    app:lottie_rawRes="@raw/travelrmap"
+                                    app:lottie_autoPlay="true"
+                                    app:lottie_loop="true"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.0"
-                                    app:srcCompat="@drawable/hometravel" />
+                                    app:layout_constraintVertical_bias="0.0"/>
 
                                 <androidx.appcompat.widget.AppCompatButton
                                     android:id="@+id/searchBtn"
-                                    android:layout_width="200dp"
-                                    android:layout_height="0dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginBottom="16dp"
                                     android:background="@drawable/rounded_squared"
                                     android:drawableStart="@drawable/loupe"
-                                    android:paddingStart="20dp"
+                                    android:drawablePadding="5dp"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="16dp"
                                     android:fontFamily="@font/airbnb_cereal"
                                     android:text="Where are you going?"
                                     android:textAllCaps="false"

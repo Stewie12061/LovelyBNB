@@ -95,7 +95,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(),"Cancel reservation",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        int idTrip = R.id.mnuTrip;
+                        int idTrip = 3;
                         String IDtrip = Integer.toString(idTrip);
                         intent.putExtra("Fragment",IDtrip);
                         startActivity(intent);

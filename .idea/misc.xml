@@ -9,6 +9,9 @@
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/check_status.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/favorite.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/heart_icon.xml" value="0.24027777777777778" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_chat.xml" value="0.23378378378378378" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_explore.xml" value="0.23378378378378378" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite_red.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite_white.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_like_off.xml" value="0.2703125" />
@@ -34,11 +37,11 @@
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/activity_update_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/activity_welcome.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.21981981981981982" />
-        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_explore.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_explore.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_favorite.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_message.xml" value="0.21981981981981982" />
-        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_profile.xml" value="0.21981981981981982" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_profile.xml" value="0.21688888888888888" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/fragment_trip.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/item_favorite.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/item_image_detail.xml" value="0.22592592592592592" />

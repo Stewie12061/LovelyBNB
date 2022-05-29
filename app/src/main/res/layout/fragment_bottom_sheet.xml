@@ -38,21 +38,34 @@
         app:layout_constraintStart_toEndOf="@+id/orderItemImg"
         app:layout_constraintTop_toTopOf="@+id/orderItemImg" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:fontFamily="@font/airbnb_cereal"
-        android:padding="5dp"
-        android:text="Reservation request at LovelyBNB"
-        android:textAlignment="center"
-        android:textColor="@color/redbnb"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/lnlntop"
+            android:layout_width="70dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/rounded_squared" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/airbnb_cereal"
+            android:padding="5dp"
+            android:layout_marginTop="16dp"
+            android:text="Reservation request at LovelyBNB"
+            android:textAlignment="center"
+            android:textColor="@color/redbnb"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnlntop" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/placeOrder"

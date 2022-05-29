@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="75dp"
                 android:layout_weight="1"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rounded_white"
                 android:orientation="vertical"
                 android:paddingBottom="10dp"
@@ -81,6 +82,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_avatar">
 
                 <LinearLayout
+                    android:padding="8dp"
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -164,6 +166,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
@@ -173,9 +176,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/pink_less"
-                            android:padding="5dp"
+                            android:fontFamily="@font/airbnb_cereal"
                             android:text="Password"
-                            android:textColor="#B18A8A"
+                            android:padding="5dp"
+                            android:textColor="@color/grey_font"
                             android:textSize="18dp" />
 
                         <TextView
@@ -183,9 +187,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:fontFamily="@font/airbnb_cereal"
                             android:background="@color/redbnb"
-                            android:padding="5dp"
                             android:text="Change"
+                            android:padding="5dp"
                             android:textAlignment="center"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -196,6 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
@@ -206,8 +212,9 @@
                             android:layout_weight="1"
                             android:background="@color/pink_less"
                             android:padding="5dp"
+                            android:fontFamily="@font/airbnb_cereal"
                             android:text="Email"
-                            android:textColor="#B18A8A"
+                            android:textColor="@color/grey_font"
                             android:textSize="18dp" />
 
                         <TextView
@@ -238,7 +245,8 @@
                             android:background="@color/pink_less"
                             android:padding="5dp"
                             android:text="Gender"
-                            android:textColor="#B18A8A"
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_font"
                             android:textSize="18dp" />
 
                         <TextView
@@ -269,7 +277,8 @@
                             android:background="@color/pink_less"
                             android:padding="5dp"
                             android:text="Fullname"
-                            android:textColor="#B18A8A"
+                            android:fontFamily="@font/airbnb_cereal"
+                            android:textColor="@color/grey_font"
                             android:textSize="18dp" />
 
                         <TextView
@@ -300,7 +309,8 @@
                             android:background="@color/pink_less"
                             android:padding="5dp"
                             android:text="Phone Number"
-                            android:textColor="#B18A8A"
+                            android:fontFamily="@font/airbnb_cereal"
+                            android:textColor="@color/grey_font"
                             android:textSize="18dp" />
 
                         <TextView

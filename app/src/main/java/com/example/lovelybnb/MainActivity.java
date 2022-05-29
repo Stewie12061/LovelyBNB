@@ -1,34 +1,23 @@
 package com.example.lovelybnb;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
-
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.lovelybnb.Fragment.ExploreFragment;
 import com.example.lovelybnb.Fragment.FavoriteFragment;
 import com.example.lovelybnb.Fragment.MessageFragment;
 import com.example.lovelybnb.Fragment.ProfileFragment;
 import com.example.lovelybnb.Fragment.TripFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
+    MeowBottomNavigation meowBottomNavigation;
     String idIntent = null;
 
     @Override
@@ -38,45 +27,68 @@ public class MainActivity extends AppCompatActivity {
 
         idIntent = getIntent().getStringExtra("Fragment");
 
-        bottomNavigationView = findViewById(R.id.bottomNav);
+        meowBottomNavigation = findViewById(R.id.meowBottomNav);
 
-        if (idIntent==null){
-            display(R.id.mnuexplore);
-        }else {
-            int ID = Integer.parseInt(idIntent);
-            display(ID);
-            bottomNavigationView.setSelectedItemId(ID);
-            idIntent = null;
-        }
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_favorite));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_airplane));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_explore));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.ic_chat));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(5,R.drawable.ic_account));
+
+
+        meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                display(item.getItemId());
-                return true;
+            public void onShowItem(MeowBottomNavigation.Model item) {
+                display(item.getId());
             }
         });
 
+        if (idIntent==null){
+            meowBottomNavigation.show(3,true);
+        }else {
+            int ID = Integer.parseInt(idIntent);
+            meowBottomNavigation.show(ID,true);
+            idIntent = null;
+        }
 
+        meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+            @Override
+            public void onClickItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
+        meowBottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
 
     }
 
     void display(int id) {
         Fragment fragment = null;
-        switch (id) {
-            case R.id.mnuexplore:
-                fragment = new ExploreFragment();
-                break;
-            case R.id.mnuFavorite:
+        switch (id){
+            case 1:
+                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new FavoriteFragment();
                 break;
-            case R.id.mnuTrip:
+            case 2:
+                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new TripFragment();
                 break;
-            case R.id.mnuMessage:
+            case 3:
+                meowBottomNavigation.setBackgroundResource(R.color.pink_less);
+                fragment = new ExploreFragment();
+                break;
+            case 4:
+                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new MessageFragment();
                 break;
-            case R.id.mnuProfile:
+            case 5:
+                meowBottomNavigation.setBackgroundResource(R.color.pink_less);
                 fragment = new ProfileFragment();
                 break;
         }

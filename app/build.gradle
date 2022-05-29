@@ -56,6 +56,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //convert img
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -63,10 +65,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
+    //Joda-Time provides a quality replacement for the Java date and time classes.
     implementation 'joda-time:joda-time:2.9.1'
-    implementation 'com.airbnb.android:lottie:3.4.0'
-    implementation 'com.github.varunest:sparkbutton:1.0.6'
-    implementation 'com.archit.calendar:awesome-calendar:2.0.0'
 
+    //lottie animation img
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    //add for favorite button
+    implementation 'com.github.varunest:sparkbutton:1.0.6'
+
+    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
 
 }
