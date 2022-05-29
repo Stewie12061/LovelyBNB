@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -49,19 +52,43 @@ import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment{
 
-
-//    private PropertyTypeAdapter propertyTypeAdapter;
-    private RecyclerView rvInspire, rvProperty;;
+    private RecyclerView rvInspire, rvProperty;
     Button search;
+    private TextView appName1, appName2;
+    private Animation topAnim, bottomAnim;
+    private ImageView logo;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference referenceInspire, referenceProperty;
     FirebaseRecyclerAdapter<PropertyType, PropertyTypeViewHolder> adapterProperty;
     FirebaseRecyclerAdapter<Inspire, InspireViewHolder> adapterInspire;
+    NestedScrollView nestedScrollView;
 
-    private View ExploreView;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private String mParam1;
+    private String mParam2;
+
     public ExploreFragment() {
         // Required empty public constructor
+    }
+
+    public static ExploreFragment newInstance(String param1, String param2) {
+        ExploreFragment fragment = new ExploreFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
 
@@ -69,20 +96,25 @@ public class ExploreFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ExploreView = inflater.inflate(R.layout.fragment_explore, container, false);
+        return inflater.inflate(R.layout.fragment_explore, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        nestedScrollView = view.findViewById(R.id.nestedScrollView);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         referenceInspire = firebaseDatabase.getReference("Inspire Data");
         referenceProperty = firebaseDatabase.getReference("Categories");
 
-        rvInspire = (RecyclerView) ExploreView.findViewById(R.id.rvInspire);
+        rvInspire = (RecyclerView) view.findViewById(R.id.rvInspire);
         rvInspire.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvInspire.addItemDecoration(new HorizontalSpaceItemDecoration(24));
 
-        rvProperty = (RecyclerView) ExploreView.findViewById(R.id.rvPropertyType);
+        rvProperty = (RecyclerView) view.findViewById(R.id.rvPropertyType);
         rvProperty.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        search = ExploreView.findViewById(R.id.searchBtn);
+        search = view.findViewById(R.id.searchBtn);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +123,15 @@ public class ExploreFragment extends Fragment{
             }
         });
 
-        return ExploreView;
+        topAnim = AnimationUtils.loadAnimation(getContext(), R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_animation);
+
+        appName1 = view.findViewById(R.id.appName1);
+        appName2 = view.findViewById(R.id.appName2);
+        logo = view.findViewById(R.id.logo);
+        appName1.setAnimation(bottomAnim);
+        appName2.setAnimation(bottomAnim);
+        logo.setAnimation(topAnim);
     }
 
     public class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {

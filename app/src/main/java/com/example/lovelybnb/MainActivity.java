@@ -72,23 +72,18 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (id){
             case 1:
-                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new FavoriteFragment();
                 break;
             case 2:
-                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new TripFragment();
                 break;
             case 3:
-                meowBottomNavigation.setBackgroundResource(R.color.pink_less);
                 fragment = new ExploreFragment();
                 break;
             case 4:
-                meowBottomNavigation.setBackgroundResource(R.color.white);
                 fragment = new MessageFragment();
                 break;
             case 5:
-                meowBottomNavigation.setBackgroundResource(R.color.pink_less);
                 fragment = new ProfileFragment();
                 break;
         }

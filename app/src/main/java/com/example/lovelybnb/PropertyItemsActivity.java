@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -42,7 +44,7 @@ import com.varunest.sparkbutton.SparkButton;
 
 import java.util.ArrayList;
 
-public class PropertyItemsActivity extends AppCompatActivity {
+public class PropertyItemsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView rvPropertyItems;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference, favoriteRef,receiptRef;
@@ -57,6 +59,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
     ArrayList<String> arrayList = null;
 
     FirebaseRecyclerAdapter<PropertyItems, PropertyItemsViewHolder> adapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,36 @@ public class PropertyItemsActivity extends AppCompatActivity {
         });
         sparkButton = findViewById(R.id.Fav);
 
+        swipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.redbnb);
+    }
+
+    @Override
+    public void onRefresh() {
+        arrayList = new ArrayList<String>();
+        getReceiptKey();
+        //fetch data property items equal to id
+
+        if (categoryId != null){
+            getDataPropertyItems();
+            propertyName = getIntent().getStringExtra("PropertyName");
+            propertyNameItem.setText(propertyName);
+        }
+        //fetch data property items equal to place name
+        if (propertyPlace != null){
+            getDataPropertyInspire();
+            propertyName = getIntent().getStringExtra("PropertyPlace");
+
+            propertyNameItem.setText(propertyName);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        },2000);
     }
 
     @Override
@@ -387,6 +420,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
         adapter.startListening();
 
     }
+
     private class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
         private final int horizontalSpaceWidth;
 
