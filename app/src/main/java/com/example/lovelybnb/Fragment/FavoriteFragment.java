@@ -94,11 +94,11 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void getReceiptKey() {
-        DatabaseReference userRef = firebaseDatabase.getReference("Registered users");
+        DatabaseReference receiptRef = firebaseDatabase.getReference("Receipt");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
 
-        userRef.child(currentUserId).child("Trip").addListenerForSingleValueEvent(new ValueEventListener() {
+        receiptRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList = new ArrayList<String>();

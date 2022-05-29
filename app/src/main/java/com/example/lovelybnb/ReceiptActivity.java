@@ -3,10 +3,12 @@ package com.example.lovelybnb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -93,12 +95,26 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
                 receiptRef.child(currentUserId).child(itemId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(getApplicationContext(),"Cancel reservation",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        int idTrip = 3;
-                        String IDtrip = Integer.toString(idTrip);
-                        intent.putExtra("Fragment",IDtrip);
-                        startActivity(intent);
+
+                        Dialog dialog2 = new Dialog(ReceiptActivity.this,R.style.CustomDialog);
+                        dialog2.setContentView(R.layout.booking_loading);
+
+                        new Handler().postDelayed(new Runnable() {
+                                                      @Override
+                                                      public void run() {
+                                                          Intent intent = new Intent(ReceiptActivity.this,MainActivity.class);
+                                                          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                          int idTrip = 2;
+                                                          String IDtrip = Integer.toString(idTrip);
+                                                          intent.putExtra("Fragment",IDtrip);
+
+                                                          dialog2.dismiss();
+                                                          startActivity(intent);
+                                                      }
+                                                  }, 5000
+                        );
+
+                        dialog2.show();
                     }
                 });
 
@@ -186,7 +202,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         geocoder = new Geocoder(this, Locale.getDefault());
         List<Address> addressList = null;
 
-        receiptRef.child(currentUserId).child(itemId).addValueEventListener(new ValueEventListener() {
+        receiptRef.child(currentUserId).child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String ItemAddress = snapshot.child("receiptAddress").getValue().toString();

@@ -23,6 +23,8 @@
         app:mbn_circleColor="@color/redbnb"
         app:mbn_backgroundBottomColor="@color/white"
         app:mbn_defaultIconColor="@color/redbnb"
-        app:mbn_selectedIconColor="@color/white" />
+        app:mbn_selectedIconColor="@color/white"
+        app:mbn_rippleColor="#2f424242"
+        app:mbn_shadowColor="#1f212121"/>
 
 </LinearLayout>

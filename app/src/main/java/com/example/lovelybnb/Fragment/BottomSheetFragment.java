@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -249,16 +250,24 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     receiptRef.child(currentUserId).child(itemId).setValue(receipt).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getContext(),"Request reservation successfully",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            Dialog dialog = new Dialog(getContext(),R.style.CustomDialog);
+                            dialog.setContentView(R.layout.booking_loading);
+                            new Handler().postDelayed(new Runnable() {
+                                                          @Override
+                                                          public void run() {
+                                                              Intent intent = new Intent(getContext(),MainActivity.class);
+                                                              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                              int idTrip = 2;
+                                                              String IDtrip = Integer.toString(idTrip);
+                                                              intent.putExtra("Fragment",IDtrip);
 
-                            //call trip fragment
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            int idTrip = 3;
-                            String IDtrip = Integer.toString(idTrip);
-                            intent.putExtra("Fragment",IDtrip);
+                                                              dialog.dismiss();
+                                                              startActivity(intent);
+                                                          }
+                                                      }, 5000
+                            );
 
-                            startActivity(intent);
+                            dialog.show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

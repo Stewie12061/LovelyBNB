@@ -45,7 +45,7 @@ import java.util.ArrayList;
 public class PropertyItemsActivity extends AppCompatActivity {
     private RecyclerView rvPropertyItems;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference, favoriteRef;
+    private DatabaseReference databaseReference, favoriteRef,receiptRef;
 
     String categoryId;
     String propertyName;
@@ -69,6 +69,7 @@ public class PropertyItemsActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("Items");
         favoriteRef = firebaseDatabase.getReference("Favorite");
+        receiptRef = firebaseDatabase.getReference("Receipt");
 
         //get key from receipt
 
@@ -121,11 +122,10 @@ public class PropertyItemsActivity extends AppCompatActivity {
 
 
     private void getReceiptKey() {
-        DatabaseReference userRef = firebaseDatabase.getReference("Registered users");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = user.getUid();
 
-        userRef.child(currentUserId).child("Trip").addListenerForSingleValueEvent(new ValueEventListener() {
+        receiptRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList = new ArrayList<String>();
