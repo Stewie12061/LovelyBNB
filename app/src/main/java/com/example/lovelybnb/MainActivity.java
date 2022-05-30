@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         meowBottomNavigation = findViewById(R.id.meowBottomNav);
 
-
-
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_favorite));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_airplane));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_explore));

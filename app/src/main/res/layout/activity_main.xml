@@ -20,10 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
 
-        app:mbn_circleColor="@color/redbnb"
+        app:mbn_circleColor="@color/white"
+        android:background="@color/redbnb"
         app:mbn_backgroundBottomColor="@color/white"
         app:mbn_defaultIconColor="@color/redbnb"
-        app:mbn_selectedIconColor="@color/white"
+        app:mbn_selectedIconColor="@color/redplus"
         app:mbn_rippleColor="#2f424242"
         app:mbn_shadowColor="#1f212121"/>
 
