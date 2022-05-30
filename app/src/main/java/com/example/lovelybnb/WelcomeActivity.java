@@ -74,8 +74,21 @@ public class WelcomeActivity extends AppCompatActivity {
 
         }else{
             //login
-            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-            startActivity(intent);
+            if (user.getUid().equals("V7nKCjU6nIhXZsTc5z1CYWkkOSh2")){
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View,String>(logo, "logo");
+                pairs[1] = new Pair<View,String>(slogan, "slogan");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(WelcomeActivity.this, pairs);
+                startActivity(intent, options.toBundle());
+            }
+            else {
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
 
         }
     }

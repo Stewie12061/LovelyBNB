@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/min/.gradle/caches/transforms-3/d565ad73e9670ded2efa7820ba6125fb/transformed/jetified-ImageSlideshow-0.1.0/res/drawable/default_selected_dot.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/min/.gradle/caches/transforms-3/d565ad73e9670ded2efa7820ba6125fb/transformed/jetified-ImageSlideshow-0.1.0/res/drawable/default_unselected_dot.xml" value="0.24027777777777778" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/bg_rounded_white.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/check_status.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/favorite.xml" value="0.24027777777777778" />
@@ -14,8 +15,11 @@
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite_red.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_favorite_white.xml" value="0.2703125" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_like_off.xml" value="0.2703125" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_local_1.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_relax.xml" value="0.2703125" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/ic_stewie.xml" value="0.23378378378378378" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/item_sheet_rounded_top.xml" value="0.24027777777777778" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/line_divider.xml" value="0.2703125" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/drawable/linear_gradient_bg.xml" value="0.23378378378378378" />
@@ -55,6 +59,8 @@
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/progress_dialog.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/layout/search_item.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/menu/main_menu.xml" value="0.21981981981981982" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23378378378378378" />
+        <entry key="..\:/Users/min/AndroidStudioProjects/LovelyBNB/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.23378378378378378" />
       </map>
     </option>
   </component>
