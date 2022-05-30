@@ -75,14 +75,9 @@ public class WelcomeActivity extends AppCompatActivity {
         }else{
             //login
             if (user.getUid().equals("V7nKCjU6nIhXZsTc5z1CYWkkOSh2")){
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, MainAdminActivity.class);
 
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View,String>(logo, "logo");
-                pairs[1] = new Pair<View,String>(slogan, "slogan");
-
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(WelcomeActivity.this, pairs);
-                startActivity(intent, options.toBundle());
+                startActivity(intent);
             }
             else {
                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
