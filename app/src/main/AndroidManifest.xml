@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyBNBNo">
         <activity
+            android:name=".MainAdminActivity"
+            android:exported="true" />
+        <activity
             android:name=".ImageDetailActivity"
             android:exported="true" />
         <activity

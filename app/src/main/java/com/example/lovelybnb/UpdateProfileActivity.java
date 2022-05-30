@@ -87,9 +87,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ReadWriteUserDetails readUserDetails = snapshot.getValue(ReadWriteUserDetails.class);
                 if (readUserDetails != null){
-                    fullname = readUserDetails.fullName;
+                    fullname = readUserDetails.FullName;
                     email = firebaseUser.getEmail();
-                    phonenumber = readUserDetails.phoneNumber;
+                    phonenumber = readUserDetails.PhoneNumber;
                     gender = readUserDetails.Gender;
 
                     UPfullname.setText(fullname);

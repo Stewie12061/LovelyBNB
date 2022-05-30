@@ -183,9 +183,9 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ReadWriteUserDetails readUserDetails = snapshot.getValue(ReadWriteUserDetails.class);
                 if (readUserDetails != null){
-                    String fullname = readUserDetails.fullName;
+                    String fullname = readUserDetails.FullName;
                     String email = firebaseUser.getEmail();
-                    String phoneNumber = readUserDetails.phoneNumber;
+                    String phoneNumber = readUserDetails.PhoneNumber;
                     String gender = readUserDetails.Gender;
 
                     txtgender.setText(gender);

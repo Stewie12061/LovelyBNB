@@ -94,6 +94,7 @@ public class SignupActivit extends AppCompatActivity {
                 String phonenumber = edtphonenumber.getText().toString().trim();
                 String passwordconfirm = edtpasswordconfirm.getText().toString().trim();
                 String gender;
+                String role = "User".toString().trim();
 
                 //Validate Mobile Number using Matcher and Patter
                 String mobileRegex = "(0[3|5|7|8|9])+([0-9]{8})";
@@ -139,14 +140,14 @@ public class SignupActivit extends AppCompatActivity {
                     progressDialog.setContentView(R.layout.progress_dialog);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                    registerUser(fullname, email, gender, phonenumber, password, passwordconfirm);
+                    registerUser(role, fullname, email, gender, phonenumber, password, passwordconfirm);
                 }
             }
         });
 
     }
 
-    private void registerUser(String fullname, String email, String gender, String phonenumber, String password, String passwordconfirm) {
+    private void registerUser(String role, String fullname, String email, String gender, String phonenumber, String password, String passwordconfirm) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -159,7 +160,7 @@ public class SignupActivit extends AppCompatActivity {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                             //enter users data into firebase realtime database
-                            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(fullname, email, gender, phonenumber);
+                            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(role, fullname, email, gender, phonenumber);
 
                             //extracting user reference from database for "registered users"
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -176,7 +177,7 @@ public class SignupActivit extends AppCompatActivity {
 
                                         finishAffinity();
                                     }else {
-                                        Toast.makeText(SignupActivit.this, "Authentication failed.",
+                                        Toast.makeText(SignupActivit.this, "Authentication failed",
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
