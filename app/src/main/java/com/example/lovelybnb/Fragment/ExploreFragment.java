@@ -222,8 +222,8 @@ public class ExploreFragment extends Fragment{
                 referenceProperty.child(id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String propertyname = dataSnapshot.child("Name").getValue().toString();
-                        String propertyImg = dataSnapshot.child("Image").getValue().toString();
+                        String propertyname = dataSnapshot.child("propertyName").getValue().toString();
+                        String propertyImg = dataSnapshot.child("propertyImg").getValue().toString();
 
                         propertyTypeViewHolder.propertyName.setText(propertyname);
                         Picasso.get().load(propertyImg).into(propertyTypeViewHolder.propertyImg);

@@ -350,11 +350,10 @@ public class CategoryAdminFragment extends Fragment {
                 else {
                     if (propertyType != null){
                         alertDialog.dismiss();
+                        Toast.makeText(getContext(),"Sussess create category",Toast.LENGTH_SHORT).show();
                         cateRef.child(cateId).setValue(propertyType);
                     }
                 }
-
-
             }
         });
         view.findViewById(R.id.buttonNo).setOnClickListener(new View.OnClickListener() {
@@ -466,16 +465,19 @@ public class CategoryAdminFragment extends Fragment {
         view.findViewById(R.id.buttonYes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
-                if (uri==null){
-                    Toast.makeText(getContext(),"You have to fill full infomation to create category",Toast.LENGTH_SHORT).show();
-                }
-                else if (TextUtils.isEmpty(cateName.getText().toString().trim())){
+                if (TextUtils.isEmpty(cateName.getText().toString().trim())){
                     cateName.setError("You have to fill this information!");
                     cateName.requestFocus();
                 }
+                else if(uri==null){
+                    Toast.makeText(getContext(),"You have to fill full information to create category",Toast.LENGTH_SHORT).show();
+                }
+                else if (isUpLoad==false){
+                    Toast.makeText(getContext(),"You have to upload image",Toast.LENGTH_SHORT).show();
+                }
                 else {
                     if (propertyType != null){
+                        Toast.makeText(getContext(),"Modify sussessed",Toast.LENGTH_SHORT).show();
                         cateRef.child(catePositionId).setValue(propertyType);
                     }
                 }
