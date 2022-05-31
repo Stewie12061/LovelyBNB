@@ -74,6 +74,8 @@ public class CategoryAdminFragment extends Fragment {
     String catePositionId;
     FirebaseRecyclerAdapter<PropertyType, CateAdminViewHolder> adapter;
     String cateName;
+    String img;
+
     boolean isUpLoad=false;
 
     private static final String ARG_PARAM1 = "param1";
@@ -405,8 +407,9 @@ public class CategoryAdminFragment extends Fragment {
         cateRef.child(catePositionId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                img = snapshot.child("propertyImg").getValue().toString();
                 cateName.setText(snapshot.child("propertyName").getValue().toString());
-                Picasso.get().load(snapshot.child("propertyImg").getValue().toString()).into(imgCate);
+                Picasso.get().load(img).into(imgCate);
             }
 
             @Override
@@ -478,15 +481,18 @@ public class CategoryAdminFragment extends Fragment {
                     cateName.setError("You have to fill this information!");
                     cateName.requestFocus();
                 }
-                else if(uri==null){
-                    Toast.makeText(getContext(),"You have to fill full information to create category",Toast.LENGTH_SHORT).show();
-                }
-                else if (isUpLoad==false){
-                    Toast.makeText(getContext(),"You have to upload image",Toast.LENGTH_SHORT).show();
-                }
                 else {
-                    if (propertyType != null){
+                    if (uri==null){
+                        alertDialog.dismiss();
+                        propertyType = new PropertyType(img,cateName.getText().toString());
                         Toast.makeText(getContext(),"Modify sussessed",Toast.LENGTH_SHORT).show();
+                        cateRef.child(catePositionId).setValue(propertyType);
+                    }
+                    else{
+                        if (isUpLoad==false){
+                            Toast.makeText(getContext(),"You have to upload image",Toast.LENGTH_SHORT).show();
+                        }
+                        alertDialog.dismiss();
                         cateRef.child(catePositionId).setValue(propertyType);
                     }
                 }
