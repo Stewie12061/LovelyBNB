@@ -2,26 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".MainAdminActivity">
 
     <LinearLayout
-        android:id="@+id/containMenu"
         android:background="@color/redbnb"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <include
+            layout="@layout/chip_nav_header"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+
         <com.ismaeldivita.chipnavigation.ChipNavigationBar
             android:id="@+id/left_menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cnb_radius="20dp"
-            android:layout_marginTop="16dp"
-            app:cnb_iconSize="34dp"
-            app:cnb_unselectedColor="#6C6C6C"
+            app:cnb_iconSize="32dp"
+            app:cnb_unselectedColor="#ACA7A7"
             app:cnb_menuResource="@menu/admin_nav"
             app:cnb_orientationMode="vertical"
             app:cnb_minExpandedWidth="150dp"

@@ -1,15 +1,11 @@
 package com.example.lovelybnb.Fragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -30,8 +26,6 @@ import com.example.lovelybnb.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -251,7 +245,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         @Override
                         public void onSuccess(Void unused) {
                             Dialog dialog = new Dialog(getContext(),R.style.CustomDialog);
-                            dialog.setContentView(R.layout.booking_loading);
+                            dialog.setContentView(R.layout.dialog_booking_loading);
                             new Handler().postDelayed(new Runnable() {
                                                           @Override
                                                           public void run() {

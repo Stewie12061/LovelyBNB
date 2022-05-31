@@ -12,6 +12,11 @@
         android:title="Search"
         app:cnb_iconColor="@color/white" />
     <item
+        android:id="@+id/mnuProfileAdmin"
+        android:icon="@drawable/ic_account"
+        android:title="Admin Profile"
+        app:cnb_iconColor="@color/white" />
+    <item
         android:id="@+id/mnuSignoutMenu"
         android:icon="@drawable/ic_sign_out"
         android:title="Sign out"

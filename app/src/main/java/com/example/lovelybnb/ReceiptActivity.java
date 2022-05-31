@@ -97,7 +97,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
                     public void onSuccess(Void unused) {
 
                         Dialog dialog2 = new Dialog(ReceiptActivity.this,R.style.CustomDialog);
-                        dialog2.setContentView(R.layout.booking_loading);
+                        dialog2.setContentView(R.layout.dialog_booking_loading);
 
                         new Handler().postDelayed(new Runnable() {
                                                       @Override

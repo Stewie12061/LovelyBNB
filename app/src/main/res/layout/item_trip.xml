@@ -28,7 +28,7 @@
                 android:layout_height="130dp"
                 android:src="@drawable/tphcm"
                 android:scaleType="centerCrop"
-                app:riv_corner_radius="15dp"/>
+                app:riv_corner_radius="20dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
