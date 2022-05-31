@@ -1,5 +1,6 @@
 package com.example.lovelybnb;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,12 @@ import com.example.lovelybnb.FragmentAdmin.CategoryAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.ProfileAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.SearchAdminFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainAdminActivity extends AppCompatActivity {
@@ -36,12 +43,21 @@ public class MainAdminActivity extends AppCompatActivity {
 
     TextView adminName, adminMail;
     ChangeBounds changeBounds = new ChangeBounds();
-    private FirebaseAuth firebaseAuth;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference userRef;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
+
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
+        userRef = firebaseDatabase.getReference("Registered users");
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         containMenu = findViewById(R.id.containMenu);
         expanedBtn = findViewById(R.id.expandBtn);
@@ -49,6 +65,18 @@ public class MainAdminActivity extends AppCompatActivity {
 
         adminName = findViewById(R.id.adminName);
         adminMail = findViewById(R.id.adminMail);
+
+        userRef.child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                adminName.setText(snapshot.child("FullName").getValue().toString());
+                adminMail.setText(snapshot.child("Email").getValue().toString());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         chipNavigationBar.setItemSelected(R.id.mnuCategory,true);
@@ -148,7 +176,5 @@ public class MainAdminActivity extends AppCompatActivity {
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         alertDialog.show();
-
-
     }
 }

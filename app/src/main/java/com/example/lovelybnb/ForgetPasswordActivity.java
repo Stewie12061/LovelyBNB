@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-
-import java.util.regex.Pattern;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
@@ -64,7 +60,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }else {
                     progressDialog = new ProgressDialog(ForgetPasswordActivity.this);
                     progressDialog.show();
-                    progressDialog.setContentView(R.layout.progress_dialog);
+                    progressDialog.setContentView(R.layout.dialog_progress);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                     resetPassword(email);
                 }

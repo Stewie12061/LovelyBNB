@@ -152,7 +152,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
             //load progressbar
             progressDialog = new ProgressDialog(UpdateProfileActivity.this);
             progressDialog.show();
-            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.setContentView(R.layout.dialog_progress);
             progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(UpdateProfileActivity.this, new OnCompleteListener<AuthResult>() {

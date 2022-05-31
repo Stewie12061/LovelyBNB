@@ -1,11 +1,9 @@
 package com.example.lovelybnb;
 
 import android.app.ActivityOptions;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -28,7 +26,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
@@ -110,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     progressDialog = new ProgressDialog(LoginActivity.this);
                     progressDialog.show();
-                    progressDialog.setContentView(R.layout.progress_dialog);
+                    progressDialog.setContentView(R.layout.dialog_progress);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                     userRef.child("Admin").addValueEventListener(new ValueEventListener() {

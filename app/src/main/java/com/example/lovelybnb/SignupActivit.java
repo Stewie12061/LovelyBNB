@@ -137,7 +137,7 @@ public class SignupActivit extends AppCompatActivity {
                     //load progressbar
                     progressDialog = new ProgressDialog(SignupActivit.this);
                     progressDialog.show();
-                    progressDialog.setContentView(R.layout.progress_dialog);
+                    progressDialog.setContentView(R.layout.dialog_progress);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                     registerUser(role, fullname, email, gender, phonenumber, password, passwordconfirm);

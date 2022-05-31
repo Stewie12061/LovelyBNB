@@ -94,7 +94,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             progressDialog = new ProgressDialog(ChangePasswordActivity.this);
             progressDialog.show();
-            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.setContentView(R.layout.dialog_progress);
             progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(ChangePasswordActivity.this, new OnCompleteListener<AuthResult>() {

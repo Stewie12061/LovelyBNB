@@ -3,9 +3,7 @@ package com.example.lovelybnb.Data;
 import java.io.Serializable;
 
 public class PropertyType{
-    String propertyImg;
-    String propertyName;
-    String id;
+    public String propertyImg, propertyName, id;
 
     public PropertyType(){
     }
@@ -14,6 +12,11 @@ public class PropertyType{
         this.propertyImg = propertyImg;
         this.propertyName = propertyName;
         this.id = id;
+    }
+
+    public PropertyType(String propertyImg, String propertyName){
+        this.propertyImg = propertyImg;
+        this.propertyName = propertyName;
     }
 
     public String getPropertyImg() {
@@ -32,7 +35,7 @@ public class PropertyType{
         this.propertyName = propertyName;
     }
 
-    public String getId(String key) {
+    public String getId() {
         return id;
     }
 
