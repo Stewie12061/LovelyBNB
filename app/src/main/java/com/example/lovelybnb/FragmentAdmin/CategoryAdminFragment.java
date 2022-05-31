@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.example.lovelybnb.Adapter.CateAdminViewHolder;
 import com.example.lovelybnb.Data.PropertyType;
+import com.example.lovelybnb.ItemAdminActivity;
+import com.example.lovelybnb.ItemClickListener;
 import com.example.lovelybnb.LoginActivity;
 import com.example.lovelybnb.MainAdminActivity;
 import com.example.lovelybnb.R;
@@ -128,8 +130,6 @@ public class CategoryAdminFragment extends Fragment {
             }
         });
 
-
-
         //get id for new category
         cateRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -191,6 +191,15 @@ public class CategoryAdminFragment extends Fragment {
                                 catePositionId = adapter.getRef(holder.getBindingAdapterPosition()).getKey();
                                 cateName = propertyname;
                                 deleteCate();
+                            }
+                        });
+
+                        holder.setItemClickListener(new ItemClickListener() {
+                            @Override
+                            public void onClick(View view, int position, boolean isLongClick) {
+                                Intent intent = new Intent(getContext(), ItemAdminActivity.class);
+                                intent.putExtra("categoryId",adapter.getRef(position).getKey());
+                                startActivity(intent);
                             }
                         });
                     }

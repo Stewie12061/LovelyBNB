@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyBNBNo">
         <activity
+            android:name=".ItemAdminActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainAdminActivity"
             android:exported="true" />
         <activity
