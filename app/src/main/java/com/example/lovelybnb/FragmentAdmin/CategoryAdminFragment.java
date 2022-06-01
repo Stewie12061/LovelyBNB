@@ -68,13 +68,12 @@ public class CategoryAdminFragment extends Fragment {
     Uri uri = null;
     RoundedImageView imgCate;
 
-    String cateId;
+    String cateId, cateName, img, catePositionId;
     PropertyType propertyType;
     ArrayList<String> arrayList = null;
-    String catePositionId;
     FirebaseRecyclerAdapter<PropertyType, CateAdminViewHolder> adapter;
-    String cateName;
-    String img;
+
+    TextView countCate;
 
     boolean isUpLoad=false;
 
@@ -132,6 +131,7 @@ public class CategoryAdminFragment extends Fragment {
             }
         });
 
+        countCate = view.findViewById(R.id.countCate);
         //get id for new category
         cateRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -140,10 +140,13 @@ public class CategoryAdminFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     arrayList.add(dataSnapshot.getKey());
                 }
+                //count cate
+                countCate.setText(Integer.toString(arrayList.size()));
+
+                //get last item in cate and create id for new cate
                 String cateidString = arrayList.get(arrayList.size()-1);
                 int cateidInt = Integer.parseInt(cateidString) +1;
                 cateId = Integer.toString(cateidInt);
-                Toast.makeText(getContext(),cateId,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -151,6 +154,8 @@ public class CategoryAdminFragment extends Fragment {
 
             }
         });
+
+
     }
 
     @Override
@@ -166,7 +171,6 @@ public class CategoryAdminFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull CateAdminViewHolder holder, int position, @NonNull PropertyType model) {
                 String id = getRef(position).getKey();
-
 
                 cateRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -315,7 +319,7 @@ public class CategoryAdminFragment extends Fragment {
                     storageReference = firebaseStorage.getReference();
 
                     String imageName = UUID.randomUUID().toString();
-                    StorageReference imageFolder = storageReference.child("images/"+imageName);
+                    StorageReference imageFolder = storageReference.child("images/categories/"+imageName);
 
                     //put img to storage
                     imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -446,7 +450,7 @@ public class CategoryAdminFragment extends Fragment {
                     storageReference = firebaseStorage.getReference();
 
                     String imageName = UUID.randomUUID().toString();
-                    StorageReference imageFolder = storageReference.child("images/"+imageName);
+                    StorageReference imageFolder = storageReference.child("images/categories/"+imageName);
 
                     //put img to storage
                     imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

@@ -1,14 +1,14 @@
 package com.example.lovelybnb.Data;
 
 public class PropertyItems {
-    String itemDescription, itemImage, itemId, itemName, itemPlace, itemPrice, itemRating;
+    String itemDescription, itemImage, propertyTypeId, itemName, itemPlace, itemPrice, itemRating;
 
     public PropertyItems(){
     }
 
-    public PropertyItems(String itemDescription, String itemId, String itemImage, String itemName, String itemPlace, String itemPrice, String itemRating){
+    public PropertyItems(String itemDescription, String propertyTypeId, String itemImage, String itemName, String itemPlace, String itemPrice, String itemRating){
         this.itemDescription = itemDescription;
-        this.itemId = itemId;
+        this.propertyTypeId = propertyTypeId;
         this.itemImage = itemImage;
         this.itemName = itemName;
         this.itemPlace = itemPlace;
@@ -33,12 +33,12 @@ public class PropertyItems {
         this.itemImage = itemImage;
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getPropertyTypeId() {
+        return propertyTypeId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setPropertyTypeId(String propertyTypeId) {
+        this.propertyTypeId = propertyTypeId;
     }
 
     public String getItemName() {
