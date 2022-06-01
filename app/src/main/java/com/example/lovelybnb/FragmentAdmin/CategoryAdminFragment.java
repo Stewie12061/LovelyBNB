@@ -140,9 +140,10 @@ public class CategoryAdminFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     arrayList.add(dataSnapshot.getKey());
                 }
-                int cateidInt = arrayList.size();
-                cateidInt = cateidInt +1;
+                String cateidString = arrayList.get(arrayList.size()-1);
+                int cateidInt = Integer.parseInt(cateidString) +1;
                 cateId = Integer.toString(cateidInt);
+                Toast.makeText(getContext(),cateId,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -335,6 +336,7 @@ public class CategoryAdminFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            isUpLoad=false;
                             progressDialog.dismiss();
                             Toast.makeText(getContext(),"Upload failed",Toast.LENGTH_SHORT).show();
                         }
@@ -464,6 +466,7 @@ public class CategoryAdminFragment extends Fragment {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            isUpLoad=false;
                             progressDialog.dismiss();
                             Toast.makeText(getContext(),"Upload failed",Toast.LENGTH_SHORT).show();
                         }
