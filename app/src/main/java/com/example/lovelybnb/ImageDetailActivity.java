@@ -50,7 +50,7 @@ public class ImageDetailActivity extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -87,5 +87,11 @@ public class ImageDetailActivity extends AppCompatActivity {
         };
         rvImage.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_from_bottom,R.anim.slide_to_top);
     }
 }

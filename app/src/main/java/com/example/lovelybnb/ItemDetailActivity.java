@@ -113,7 +113,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -134,12 +134,15 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                 BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
                 bottomSheetFragment.setArguments(bundle);
                 bottomSheetFragment.show(getSupportFragmentManager(),bottomSheetFragment.getTag());
-
             }
         });
 
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right);
     }
 
     private void getdetailHost(String itemId) {
@@ -185,6 +188,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
                             Intent intent = new Intent(getApplicationContext(),ImageDetailActivity.class);
                             intent.putExtra("itemId",itemId);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
                         }
                     });
                 }
@@ -201,12 +205,12 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         detailRef.child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String Name = snapshot.child("name").getValue().toString();
-                String Price = snapshot.child("price").getValue().toString();
-                String Place = snapshot.child("place").getValue().toString();
-                String Rating = snapshot.child("rating").getValue().toString();
-                String Description = snapshot.child("description").getValue().toString();
-                String Image = snapshot.child("image").getValue().toString();
+                String Name = snapshot.child("itemName").getValue().toString();
+                String Price = snapshot.child("itemPrice").getValue().toString();
+                String Place = snapshot.child("itemPlace").getValue().toString();
+                String Rating = snapshot.child("itemRating").getValue().toString();
+                String Description = snapshot.child("itemDescription").getValue().toString();
+                String Image = snapshot.child("itemImage").getValue().toString();
 
                 detailItemDes.setText(Description);
                 detailItemName.setText(Name);

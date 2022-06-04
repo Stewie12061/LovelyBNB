@@ -85,7 +85,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
         Cancel = findViewById(R.id.cancelBooking);
@@ -126,6 +126,12 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
         getReceiptData();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.no_animation,R.anim.zoom_out);
+    }
+
     private void getDetailImgSlider(String itemId, List<SlideModel> slideModelArrayList) {
 
         sliderRef.child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,6 +146,7 @@ public class ReceiptActivity extends AppCompatActivity implements OnMapReadyCall
                             Intent intent = new Intent(getApplicationContext(),ImageDetailActivity.class);
                             intent.putExtra("itemId",itemId);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
                         }
                     });
                 }

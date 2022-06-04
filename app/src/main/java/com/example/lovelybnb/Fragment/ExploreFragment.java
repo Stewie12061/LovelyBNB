@@ -120,6 +120,7 @@ public class ExploreFragment extends Fragment{
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
 
@@ -132,6 +133,7 @@ public class ExploreFragment extends Fragment{
         appName1.setAnimation(bottomAnim);
         appName2.setAnimation(bottomAnim);
         logo.setAnimation(topAnim);
+
     }
 
     public class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
@@ -179,7 +181,9 @@ public class ExploreFragment extends Fragment{
                                 Intent intent = new Intent(getContext(),PropertyItemsActivity.class);
                                 intent.putExtra("PropertyPlace",inspirePlace);
                                 startActivity(intent);
+                                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                             }
+
                         });
                     }
 
@@ -236,6 +240,7 @@ public class ExploreFragment extends Fragment{
                                 intent.putExtra("IdPropertyType",adapterProperty.getRef(position).getKey());
                                 intent.putExtra("PropertyName",propertyname);
                                 startActivity(intent);
+                                getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                             }
                         });
                     }

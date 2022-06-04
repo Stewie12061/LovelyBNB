@@ -73,7 +73,7 @@ public class CategoryAdminFragment extends Fragment {
     ArrayList<String> arrayList = null;
     FirebaseRecyclerAdapter<PropertyType, CateAdminViewHolder> adapter;
 
-    TextView countCate;
+    private TextView countCate;
 
     boolean isUpLoad=false;
 

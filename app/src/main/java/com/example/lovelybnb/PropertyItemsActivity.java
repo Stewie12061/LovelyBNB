@@ -88,14 +88,13 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
 
         categoryId = getIntent().getStringExtra("IdPropertyType");
 
-
         propertyPlace = getIntent().getStringExtra("PropertyPlace");
 
         goback = findViewById(R.id.backprevious);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
         sparkButton = findViewById(R.id.Fav);
@@ -103,6 +102,12 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
         swipeRefreshLayout =findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.redbnb);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
 
     @Override
@@ -174,7 +179,7 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
     }
 
     private void getDataPropertyInspire() {
-        Query query = databaseReference.orderByChild("place").equalTo(propertyPlace);
+        Query query = databaseReference.orderByChild("itemPlace").equalTo(propertyPlace);
 
         FirebaseRecyclerOptions<PropertyItems> options = new FirebaseRecyclerOptions.Builder<PropertyItems>().setQuery(query,PropertyItems.class).build();
 
@@ -197,11 +202,11 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                        String Name = snapshot.child("name").getValue().toString();
-                        String Price = snapshot.child("price").getValue().toString();
-                        String Place = snapshot.child("place").getValue().toString();
-                        String Rating = snapshot.child("rating").getValue().toString();
-                        String Image = snapshot.child("image").getValue().toString();
+                        String Name = snapshot.child("itemName").getValue().toString();
+                        String Price = snapshot.child("itemPrice").getValue().toString();
+                        String Place = snapshot.child("itemPlace").getValue().toString();
+                        String Rating = snapshot.child("itemRating").getValue().toString();
+                        String Image = snapshot.child("itemImage").getValue().toString();
 
                         holder.PropertyItemName.setText(Name);
                         holder.PropertyItemPlace.setText(Place);
@@ -214,17 +219,8 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(PropertyItemsActivity.this, ItemDetailActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
-                                Pair[] pairs = new Pair[6];
-                                pairs[0] = new Pair<View,String>(holder.PropertyItemName, "name");
-                                pairs[1] = new Pair<View,String>(holder.PropertyItemImg, "img");
-                                pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
-                                pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
-                                pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
-                                pairs[5] = new Pair<View,String>(holder.sparkButton,"fav");
-
-                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
-                                startActivity(intent, options.toBundle());
-
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
                             }
                         });
 
@@ -321,11 +317,11 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String Name = snapshot.child("name").getValue().toString();
-                        String Price = snapshot.child("price").getValue().toString();
-                        String Place = snapshot.child("place").getValue().toString();
-                        String Rating = snapshot.child("rating").getValue().toString();
-                        String Image = snapshot.child("image").getValue().toString();
+                        String Name = snapshot.child("itemName").getValue().toString();
+                        String Price = snapshot.child("itemPrice").getValue().toString();
+                        String Place = snapshot.child("itemPlace").getValue().toString();
+                        String Rating = snapshot.child("itemRating").getValue().toString();
+                        String Image = snapshot.child("itemImage").getValue().toString();
 
                         holder.PropertyItemName.setText(Name);
                         holder.PropertyItemPlace.setText(Place);
@@ -338,17 +334,8 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(PropertyItemsActivity.this, ItemDetailActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
-
-                                Pair[] pairs = new Pair[6];
-                                pairs[0] = new Pair<View,String>(holder.PropertyItemName, "name");
-                                pairs[1] = new Pair<View,String>(holder.PropertyItemImg, "img");
-                                pairs[2] = new Pair<View,String>(holder.PropertyItemPrice, "price");
-                                pairs[3] = new Pair<View,String>(holder.PropertyItemPlace, "place");
-                                pairs[4] = new Pair<View,String>(holder.PropertyItemRating, "rating");
-                                pairs[5] = new Pair<View,String>(holder.sparkButton,"fav");
-
-                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(PropertyItemsActivity.this, pairs);
-                                startActivity(intent, options.toBundle());
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
                             }
                         });
 

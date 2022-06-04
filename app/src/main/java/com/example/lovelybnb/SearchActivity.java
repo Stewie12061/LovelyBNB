@@ -18,6 +18,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,11 +42,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
-    TextView goback;
+    TextView goback, appname1,appname2;
+    ImageView logo;
     SearchView searchView;
     RecyclerView rvSearch;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference itemRef,favoriteRef;
+    DatabaseReference itemRef,favoriteRef,receiptRef;
     Toolbar toolbar;
     FirebaseRecyclerOptions<PropertyItems> options;
     FirebaseRecyclerAdapter<PropertyItems,PropertyItemsViewHolder> adapter;
@@ -57,9 +59,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        appname1 = findViewById(R.id.appnameSearch1);
+        appname2 = findViewById(R.id.appnameSearch2);
+        logo = findViewById(R.id.logoSearch);
+
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         itemRef = firebaseDatabase.getReference("Items");
         favoriteRef = firebaseDatabase.getReference("Favorite");
+        receiptRef = firebaseDatabase.getReference("Receipt");
         favorite = new Favorite();
 
         toolbar = findViewById(R.id.toolbarSearch);
@@ -67,20 +74,26 @@ public class SearchActivity extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
-        rvSearch = findViewById(R.id.rvSearch);
 
+        rvSearch = findViewById(R.id.rvSearch);
         rvSearch.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
 
         searchWaiting = findViewById(R.id.searchWaiting);
+
         searchView = toolbar.findViewById(R.id.searchView);
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchWaiting.setVisibility(View.INVISIBLE);
                 rvSearch.setVisibility(View.VISIBLE);
+                searchView.setMinimumWidth(300);
+                loadDataSearch("");
+                appname1.setVisibility(View.GONE);
+                appname2.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
             }
         });
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -88,15 +101,30 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onClose() {
                 searchWaiting.setVisibility(View.VISIBLE);
                 rvSearch.setVisibility(View.INVISIBLE);
+                searchView.setMinimumWidth(50);
+                appname1.setVisibility(View.VISIBLE);
+                appname2.setVisibility(View.VISIBLE);
+                logo.setVisibility(View.VISIBLE);
                 return false;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        // close search view on back button pressed
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         arrayList = new ArrayList<String>();
+        getReceiptKey();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -112,9 +140,34 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void loadDataSearch(String searchText) {
+    private void getReceiptKey() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserId = user.getUid();
 
-        Query query = itemRef.orderByChild("name").startAt(searchText).endAt(searchText+"\uf8ff");
+        receiptRef.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList = new ArrayList<String>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    arrayList.add(dataSnapshot.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void loadDataSearch(String searchText) {
+        Query query;
+        if(searchText==""){
+            query = itemRef.orderByChild("itemName");
+        }
+        else {
+            query = itemRef.orderByChild("itemName").startAt(searchText).endAt(searchText+"\uf8ff");
+        }
+
 
         options = new FirebaseRecyclerOptions.Builder<PropertyItems>().setQuery(query,PropertyItems.class).build();
         adapter = new FirebaseRecyclerAdapter<PropertyItems, PropertyItemsViewHolder>(options) {
@@ -134,11 +187,11 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String Name = snapshot.child("name").getValue().toString();
-                        String Price = snapshot.child("price").getValue().toString();
-                        String Place = snapshot.child("place").getValue().toString();
-                        String Rating = snapshot.child("rating").getValue().toString();
-                        String Image = snapshot.child("image").getValue().toString();
+                        String Name = snapshot.child("itemName").getValue().toString();
+                        String Price = snapshot.child("itemPrice").getValue().toString();
+                        String Place = snapshot.child("itemPlace").getValue().toString();
+                        String Rating = snapshot.child("itemRating").getValue().toString();
+                        String Image = snapshot.child("itemImage").getValue().toString();
 
                         holder.PropertyItemName.setText(Name);
                         holder.PropertyItemPlace.setText(Place);

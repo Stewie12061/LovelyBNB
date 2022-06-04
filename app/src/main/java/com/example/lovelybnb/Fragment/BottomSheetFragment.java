@@ -301,10 +301,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         detailRef.child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("name").getValue().toString();
-                img = snapshot.child("image").getValue().toString();
-                String price = snapshot.child("price").getValue().toString();
-                String place = snapshot.child("place").getValue().toString();
+                String name = snapshot.child("itemName").getValue().toString();
+                img = snapshot.child("itemImage").getValue().toString();
+                String price = snapshot.child("itemPrice").getValue().toString();
+                String place = snapshot.child("itemPlace").getValue().toString();
 
                 orderName.setText(name);
                 orderPlace.setText(place);

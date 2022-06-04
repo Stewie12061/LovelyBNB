@@ -9,9 +9,11 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSearch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/black"
         android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,24 +22,46 @@
             android:id="@+id/backprevious"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:drawableStart="@drawable/arrow_white" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+        <TextView
+            android:id="@+id/appnameSearch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lovely"
+            android:gravity="center"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/bangers"
+            android:textSize="24dp"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/logoSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/bg_rounded_white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearTop" />
+            android:src="@drawable/heart_white"/>
+        <TextView
+            android:id="@+id/appnameSearch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BNB"
+            android:textColor="@color/white"
+            android:fontFamily="@font/bangers"
+            android:textSize="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="end"
+                android:background="@drawable/bg_rounded_white"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -45,7 +69,7 @@
         android:id="@+id/searchWaiting"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="60dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +82,7 @@
         android:id="@+id/rvSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

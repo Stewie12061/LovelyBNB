@@ -41,6 +41,7 @@ public class TripFragment extends Fragment {
     RecyclerView rvTrip;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    Receipt receipt;
     FirebaseRecyclerAdapter<Receipt, TripViewHolder> adapter;
 
     @Override
@@ -68,7 +69,7 @@ public class TripFragment extends Fragment {
         rvTrip = view.findViewById(R.id.rvTrip);
         rvTrip.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        Receipt receipt = new Receipt();
+        receipt = new Receipt();
         getTripData();
 
     }
@@ -76,7 +77,7 @@ public class TripFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Receipt receipt = new Receipt();
+        receipt = new Receipt();
         getTripData();
     }
 
@@ -117,6 +118,7 @@ public class TripFragment extends Fragment {
                                 Intent intent = new Intent(getContext(), ReceiptActivity.class);
                                 intent.putExtra("itemId", adapter.getRef(position).getKey());
                                 startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.zoom_in,R.anim.no_animation);
                             }
                         });
                     }
