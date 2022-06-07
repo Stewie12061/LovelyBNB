@@ -149,13 +149,13 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
         hostRef.child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String HostName = snapshot.child("host name").getValue().toString();
-                String HostEmail = snapshot.child("host email").getValue().toString();
-                String HostPhone = snapshot.child("host phone").getValue().toString();
-                String HostAvatar = snapshot.child("host avatar").getValue().toString();
+                String HostName = snapshot.child("hostName").getValue().toString();
+                String HostEmail = snapshot.child("hostEmail").getValue().toString();
+                String HostPhone = snapshot.child("hostPhone").getValue().toString();
+                String HostAvatar = snapshot.child("hostAvatar").getValue().toString();
                 String ItemAddress = snapshot.child("address").getValue().toString();
-                String CheckIn = snapshot.child("check in").getValue().toString();
-                String CheckOut = snapshot.child("check out").getValue().toString();
+                String CheckIn = snapshot.child("checkIn").getValue().toString();
+                String CheckOut = snapshot.child("checkOut").getValue().toString();
 
 
                 hostName.setText(HostName);

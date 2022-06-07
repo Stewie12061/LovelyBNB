@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -155,7 +157,6 @@ public class CategoryAdminFragment extends Fragment {
             }
         });
 
-
     }
 
     @Override
@@ -206,6 +207,7 @@ public class CategoryAdminFragment extends Fragment {
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(getContext(), ItemAdminActivity.class);
                                 intent.putExtra("categoryId",adapter.getRef(position).getKey());
+                                intent.putExtra("cateName",propertyname);
                                 startActivity(intent);
                             }
                         });
@@ -319,7 +321,7 @@ public class CategoryAdminFragment extends Fragment {
                     storageReference = firebaseStorage.getReference();
 
                     String imageName = UUID.randomUUID().toString();
-                    StorageReference imageFolder = storageReference.child("images/categories/"+imageName);
+                    StorageReference imageFolder = storageReference.child("Images/categories/"+imageName);
 
                     //put img to storage
                     imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -450,7 +452,7 @@ public class CategoryAdminFragment extends Fragment {
                     storageReference = firebaseStorage.getReference();
 
                     String imageName = UUID.randomUUID().toString();
-                    StorageReference imageFolder = storageReference.child("images/categories/"+imageName);
+                    StorageReference imageFolder = storageReference.child("Images/categories/"+imageName);
 
                     //put img to storage
                     imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

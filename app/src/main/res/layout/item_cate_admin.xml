@@ -14,11 +14,10 @@
 
         <LinearLayout
             android:id="@+id/btnDelete"
-            android:layout_width="match_parent"
+            android:layout_width="34dp"
             android:layout_height="match_parent"
             android:background="@color/redbnb"
-            android:orientation="vertical"
-            android:layout_weight="9">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -58,11 +57,10 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btnModify"
-            android:layout_width="match_parent"
+            android:layout_width="34dp"
             android:layout_height="match_parent"
             android:background="@color/redbnb"
-            android:orientation="vertical"
-            android:layout_weight="9">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"

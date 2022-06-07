@@ -38,8 +38,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class ItemAdminActivity extends AppCompatActivity {
     TextView countItem, itemCateName,goback;
+    ArrayList<String> arrayList;
     RecyclerView rvItemAd;
     FloatingActionButton openCreateItem;
     FirebaseDatabase firebaseDatabase;
@@ -47,10 +50,10 @@ public class ItemAdminActivity extends AppCompatActivity {
 
     FloatingActionButton openAddItem;
 
-    String cateId;
+    String cateId, itemIdForCreate;
     FirebaseRecyclerAdapter<PropertyItems, ItemAdminViewHolder> adapter;
 
-    String itemPositionId, itemName;
+    String itemPositionId, itemName, catename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,10 @@ public class ItemAdminActivity extends AppCompatActivity {
             }
         });
 
+        itemCateName = findViewById(R.id.itemCateName);
+        catename = getIntent().getStringExtra("cateName");
+        itemCateName.setText(catename);
+        countItem = findViewById(R.id.countItem);
 
     }
 
@@ -100,6 +107,23 @@ public class ItemAdminActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull ItemAdminViewHolder holder, int position, @NonNull PropertyItems model) {
                 String postKey = getRef(position).getKey();
+
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        arrayList = new ArrayList<String>();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            arrayList.add(dataSnapshot.getKey());
+                        }
+                        //count cate
+                        countItem.setText(Integer.toString(arrayList.size()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 itemRef.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -130,6 +154,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(ItemAdminActivity.this, ItemAdminDetailActivity.class);
                                 intent.putExtra("itemAdId",adapter.getRef(position).getKey());
+                                intent.putExtra("itemAdName",Name);
                                 startActivity(intent);
                             }
                         });
@@ -153,7 +178,10 @@ public class ItemAdminActivity extends AppCompatActivity {
     }
 
     private void createItem() {
-
+        Intent intent = new Intent(ItemAdminActivity.this,CreateItemAdminActivity.class);
+        intent.putExtra("itemIdForNewItem",itemIdForCreate);
+        intent.putExtra("cateName",catename);
+        startActivity(intent);
     }
 
     private void deleteItem() {
