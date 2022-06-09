@@ -323,10 +323,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         hostRef.child(itemId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String checkin = snapshot.child("check in").getValue().toString();
-                String checkout = snapshot.child("check out").getValue().toString();
+                String checkin = snapshot.child("checkIn").getValue().toString();
+                String checkout = snapshot.child("checkOut").getValue().toString();
                 String address = snapshot.child("address").getValue().toString();
-                String contact = snapshot.child("host phone").getValue().toString();
+                String contact = snapshot.child("hostPhone").getValue().toString();
 
                 orderAddress.setText(address);
                 checkinTime.setText(checkin);

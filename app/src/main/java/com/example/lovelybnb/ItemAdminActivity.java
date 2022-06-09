@@ -1,33 +1,42 @@
 package com.example.lovelybnb;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.AlignmentSpan;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lovelybnb.Adapter.ItemAdminViewHolder;
 import com.example.lovelybnb.Adapter.PropertyItemsViewHolder;
 import com.example.lovelybnb.Data.PropertyItems;
+import com.example.lovelybnb.Data.PropertyType;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -36,17 +45,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ItemAdminActivity extends AppCompatActivity {
+    int PICK_IMG_REQUEST = 1705;
     TextView countItem, itemCateName,goback;
     ArrayList<String> arrayList;
     RecyclerView rvItemAd;
     FloatingActionButton openCreateItem;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference itemRef,cateRef;
+    Uri uri;
+    PropertyItems propertyItems;
 
     FloatingActionButton openAddItem;
 
@@ -54,6 +73,8 @@ public class ItemAdminActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<PropertyItems, ItemAdminViewHolder> adapter;
 
     String itemPositionId, itemName, catename;
+
+    String Name, Price, Place, Rating, Image, Description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,12 +149,11 @@ public class ItemAdminActivity extends AppCompatActivity {
                 itemRef.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        String Name = snapshot.child("itemName").getValue().toString();
-                        String Price = snapshot.child("itemPrice").getValue().toString();
-                        String Place = snapshot.child("itemPlace").getValue().toString();
-                        String Rating = snapshot.child("itemRating").getValue().toString();
-                        String Image = snapshot.child("itemImage").getValue().toString();
+                        Name = snapshot.child("itemName").getValue().toString();
+                        Price = snapshot.child("itemPrice").getValue().toString();
+                        Place = snapshot.child("itemPlace").getValue().toString();
+                        Rating = snapshot.child("itemRating").getValue().toString();
+                        Image = snapshot.child("itemImage").getValue().toString();
 
                         holder.ItemAdName.setText(Name);
                         holder.ItemAdPlace.setText(Place);
@@ -158,6 +178,13 @@ public class ItemAdminActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+                        holder.btnModifyItem.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                itemPositionId = adapter.getRef(holder.getBindingAdapterPosition()).getKey();
+                                updateItem();
+                            }
+                        });
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -175,6 +202,174 @@ public class ItemAdminActivity extends AppCompatActivity {
         };
         rvItemAd.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void updateItem() {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder
+                        (ItemAdminActivity.this);
+        View view = LayoutInflater.from(ItemAdminActivity.this).inflate(
+                R.layout.dialog_create_item,
+                (NestedScrollView) findViewById(R.id.layoutDialogContainer)
+        );
+        builder.setView(view);
+
+        ((TextView) view.findViewById(R.id.textTitle))
+                .setText("Update Item");
+        ((TextView) view.findViewById(R.id.textMessage))
+                .setText("Fill all information to update");
+        ((Button) view.findViewById(R.id.buttonYes))
+                .setText("Update");
+        ((Button) view.findViewById(R.id.buttonNo))
+                .setText("Cancel");
+
+        Button select = (Button) view.findViewById(R.id.btnSelect);
+        Button upload = (Button) view.findViewById(R.id.btnUpload);
+        EditText itemName = (EditText) view.findViewById(R.id.edtItemName);
+        EditText itemPlace = (EditText) view.findViewById(R.id.edtItemPlace);
+        EditText itemPrice = (EditText) view.findViewById(R.id.edtItemPrice);
+        EditText itemRating = (EditText) view.findViewById(R.id.edtItemRating);
+        EditText itemDes = (EditText) view.findViewById(R.id.edtItemDes);
+        RoundedImageView imgItem = view.findViewById(R.id.imgItem);
+
+        itemRef.child(itemPositionId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Name = snapshot.child("itemName").getValue().toString();
+                Price = snapshot.child("itemPrice").getValue().toString();
+                Place = snapshot.child("itemPlace").getValue().toString();
+                Rating = snapshot.child("itemRating").getValue().toString();
+                Image = snapshot.child("itemImage").getValue().toString();
+                Description = snapshot.child("itemDescription").getValue().toString();
+
+                itemName.setText(Name);
+                itemPlace.setText(Place);
+                itemPrice.setText(Price);
+                itemRating.setText(Rating);
+                itemDes.setText(Description);
+                Picasso.get().load(Image).into(imgItem);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImg();
+            }
+
+        });
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (uri!=null){
+                    ProgressDialog progressDialog;
+                    progressDialog = new ProgressDialog(ItemAdminActivity.this);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.dialog_progress);
+                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                    FirebaseStorage firebaseStorage;
+                    StorageReference storageReference;
+
+                    // get the Firebase  storage reference
+                    firebaseStorage = FirebaseStorage.getInstance();
+                    storageReference = firebaseStorage.getReference();
+
+                    String imageName = UUID.randomUUID().toString();
+                    StorageReference imageFolder = storageReference.child("Images/items/"+imageName);
+
+                    //put img to storage
+                    imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ItemAdminActivity.this,"Upload succeed",Toast.LENGTH_SHORT).show();
+
+                            //get uri img from storage
+                            imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    propertyItems = new PropertyItems(itemDes.getText().toString(),uri.toString(),itemPositionId,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ItemAdminActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        final AlertDialog alertDialog = builder.create();
+
+        view.findViewById(R.id.buttonYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(itemName.getText().toString().trim())){
+                    itemName.setError("You have to fill this information!");
+                    itemName.requestFocus();
+                }
+                else if(TextUtils.isEmpty(itemPlace.getText().toString().trim())){
+                    itemPlace.setError("You have to fill this information!");
+                    itemPlace.requestFocus();
+                }
+                else if(TextUtils.isEmpty(itemPrice.getText().toString().trim())){
+                    itemPrice.setError("You have to fill this information!");
+                    itemPrice.requestFocus();
+                }
+                else if(TextUtils.isEmpty(itemDes.getText().toString().trim())){
+                    itemDes.setError("You have to fill this information!");
+                    itemDes.requestFocus();
+                }
+                else if(TextUtils.isEmpty(itemRating.getText().toString().trim())){
+                    itemRating.setError("You have to fill this information!");
+                    itemRating.requestFocus();
+                }
+                else {
+                    if (uri==null){
+                        alertDialog.dismiss();
+                        propertyItems = new PropertyItems(itemDes.getText().toString(),Image,itemPositionId,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                        cateRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else{
+                        alertDialog.dismiss();
+                        cateRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+
+
+            }
+        });
+        view.findViewById(R.id.buttonNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 
     private void createItem() {
@@ -219,5 +414,24 @@ public class ItemAdminActivity extends AppCompatActivity {
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         alertDialog.show();
+    }
+
+    private void chooseImg() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMG_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMG_REQUEST && resultCode == Activity.RESULT_OK
+                && data!=null && data.getData() != null){
+            uri = data.getData();
+            if (null != uri) {
+                // update the preview image in the layout
+//                imgCate.setImageURI(uri);
+            }
+        }
     }
 }

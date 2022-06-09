@@ -369,8 +369,12 @@ public class CategoryAdminFragment extends Fragment {
                 else {
                     if (propertyType != null){
                         alertDialog.dismiss();
-                        Toast.makeText(getContext(),"Sussess create category",Toast.LENGTH_SHORT).show();
-                        cateRef.child(cateId).setValue(propertyType);
+                        cateRef.child(cateId).setValue(propertyType).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getContext(),"Success create category",Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
@@ -403,7 +407,7 @@ public class CategoryAdminFragment extends Fragment {
         ((TextView) view.findViewById(R.id.textMessage))
                 .setText("Fill category name and upload image");
         ((Button) view.findViewById(R.id.buttonYes))
-                .setText("Modify");
+                .setText("Update");
         ((Button) view.findViewById(R.id.buttonNo))
                 .setText("Cancel");
 
@@ -459,7 +463,7 @@ public class CategoryAdminFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload sussessed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Upload succeed",Toast.LENGTH_SHORT).show();
 
                             //get uri img from storage
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -494,15 +498,24 @@ public class CategoryAdminFragment extends Fragment {
                     if (uri==null){
                         alertDialog.dismiss();
                         propertyType = new PropertyType(img,cateName.getText().toString());
-                        Toast.makeText(getContext(),"Modify sussessed",Toast.LENGTH_SHORT).show();
-                        cateRef.child(catePositionId).setValue(propertyType);
+                        cateRef.child(catePositionId).setValue(propertyType).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getContext(),"Update succeed",Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                     else{
                         if (isUpLoad==false){
                             Toast.makeText(getContext(),"You have to upload image",Toast.LENGTH_SHORT).show();
                         }
                         alertDialog.dismiss();
-                        cateRef.child(catePositionId).setValue(propertyType);
+                        cateRef.child(catePositionId).setValue(propertyType).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getContext(),"Update succeed",Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
 

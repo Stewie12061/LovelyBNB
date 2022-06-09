@@ -192,8 +192,7 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void unused) {
                     progressDialog.dismiss();
-                    Intent intent = new Intent(ItemAdminDetailActivity.this,MainAdminActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -208,8 +207,7 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void unused) {
                     progressDialog.dismiss();
-                    Intent intent = new Intent(ItemAdminDetailActivity.this,MainAdminActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
