@@ -398,7 +398,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="1:00 PM"
+                        android:text="Pick time"
                         android:textAlignment="textEnd"
                         android:textColor="@color/white"
                         android:textSize="24dp"
@@ -425,7 +425,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="Check out time"
+                        android:text="Pick time"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
 
@@ -434,7 +434,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="12:00 AM"
+                        android:text="Pick time"
                         android:textAlignment="textEnd"
                         android:textColor="@color/white"
                         android:textSize="24dp"

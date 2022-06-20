@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,13 +14,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.lovelybnb.Data.ItemDetail;
 import com.example.lovelybnb.Data.PropertyItems;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,8 +38,11 @@ import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateItemAdminActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
@@ -51,13 +58,23 @@ public class CreateItemAdminActivity extends AppCompatActivity {
     Uri uri;
     int PICK_IMG_REQUEST = 1705;
     int RECEIVE_BOOLEAN = 1;
+    int PICK_AVATAR_REQUEST = 1111;
 
     PropertyItems propertyItems;
+    ItemDetail itemDetail;
 
     ImageSlider imageSlider;
     String checkSliderString = null;
     Boolean uploadCheck = false;
+    Boolean uploadAvatarCheck = false;
 
+    EditText hostName, hostMail, hostPhone, address;
+    TextView adCheckInTime,adCheckOutTime;
+    CircleImageView adAvatar;
+    Button itemSelectImg, itemUploadImg;
+    LinearLayout adCheckInPicker, adCheckOutPicker;
+
+    TimePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,23 +205,165 @@ public class CreateItemAdminActivity extends AppCompatActivity {
             }
         });
 
+        //edt for create item detail
+        hostName = findViewById(R.id.edtHostNameCreate);
+        hostMail = findViewById(R.id.edtHostMailCreate);
+        hostPhone = findViewById(R.id.edtHostPhoneCreate);
+        address = findViewById(R.id.edtAdminAddressCreate);
+        adCheckInTime = findViewById(R.id.AdCheckInTimeCreate);
+        adCheckOutTime = findViewById(R.id.AdCheckOutTimeCreate);
+        adAvatar = findViewById(R.id.adAvatarCreate);
+
+        adCheckInPicker = findViewById(R.id.AdCheckInPickerCreate);
+        adCheckInPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(CreateItemAdminActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                int hourFormat = hourOfDay % 12;
+                                adCheckInTime.setText(String.format("%2d:%02d %s", hourFormat == 0 ? 12 : hourFormat,
+                                        minute, hourOfDay < 12 ? "AM" : "PM"));
+                            }
+                        }, hour, minutes, false);
+                picker.show();
+            }
+        });
+
+        adCheckOutPicker = findViewById(R.id.AdCheckOutPickerCreate);
+        adCheckOutPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(CreateItemAdminActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                int hourFormat = hourOfDay % 12;
+                                adCheckOutTime.setText(String.format("%2d:%02d %s", hourFormat == 0 ? 12 : hourFormat,
+                                        minute, hourOfDay < 12 ? "AM" : "PM"));
+                            }
+                        }, hour, minutes, false);
+                picker.show();
+            }
+        });
+
+        itemDetail = new ItemDetail();
+
+        itemSelectImg = findViewById(R.id.itemSelectImgCreate);
+        itemSelectImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseAvatar();
+            }
+        });
+        itemUploadImg = findViewById(R.id.itemUploadImgCreate);
+        itemUploadImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(hostName.getText().toString().trim())){
+                    hostName.setError("You have to fill this information!");
+                    hostName.requestFocus();
+                }
+                else if(TextUtils.isEmpty(hostMail.getText().toString().trim())){
+                    hostMail.setError("You have to fill this information!");
+                    hostMail.requestFocus();
+                }
+                else if(TextUtils.isEmpty(hostPhone.getText().toString().trim())){
+                    hostPhone.setError("You have to fill this information!");
+                    hostPhone.requestFocus();
+                }
+                else if(TextUtils.isEmpty(address.getText().toString().trim())){
+                    address.setError("You have to fill this information!");
+                    address.requestFocus();
+                }
+                else {
+                    if (uri != null) {
+                        ProgressDialog progressDialog;
+                        progressDialog = new ProgressDialog(CreateItemAdminActivity.this);
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.dialog_progress);
+                        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                        FirebaseStorage firebaseStorage;
+                        StorageReference storageReference;
+
+                        // get the Firebase  storage reference
+                        firebaseStorage = FirebaseStorage.getInstance();
+                        storageReference = firebaseStorage.getReference();
+
+                        String imageName = UUID.randomUUID().toString();
+                        StorageReference imageFolder = storageReference.child("Images/detail/" + imageName);
+
+                        //put img to storage
+                        imageFolder.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                progressDialog.dismiss();
+                                Toast.makeText(CreateItemAdminActivity.this, "Upload sussessed", Toast.LENGTH_SHORT).show();
+
+                                //get uri img from storage
+                                imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        uploadAvatarCheck = true;
+                                        itemDetail = new ItemDetail(address.getText().toString(), adCheckInTime.getText().toString(), adCheckOutTime.getText().toString(), uri.toString(), hostMail.getText().toString(), hostName.getText().toString(), hostPhone.getText().toString());
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(CreateItemAdminActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
         //button create item
         btnCreateItem = findViewById(R.id.btnCreateItem);
         btnCreateItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (uploadCheck==true){
+                if (uploadCheck==true && uploadAvatarCheck==true){
                     ProgressDialog progressDialog;
                     progressDialog = new ProgressDialog(CreateItemAdminActivity.this);
                     progressDialog.show();
                     progressDialog.setContentView(R.layout.dialog_progress);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    //create item
                     itemRef.child(itemIdForCreate).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Create item succeed",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    //create item detail
+                    itemDetailRef.child(itemIdForCreate).setValue(itemDetail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Create item detail succeed",Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -275,6 +434,12 @@ public class CreateItemAdminActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMG_REQUEST);
     }
+    private void chooseAvatar() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_AVATAR_REQUEST);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -284,6 +449,14 @@ public class CreateItemAdminActivity extends AppCompatActivity {
             if (null != uri) {
 //                 update the preview image in the layout
                 imgItem.setImageURI(uri);
+            }
+        }
+        if (requestCode == PICK_AVATAR_REQUEST && resultCode == Activity.RESULT_OK){
+            uri = data.getData();
+
+            if (null != uri) {
+//                 update the preview image in the layout
+                adAvatar.setImageURI(uri);
             }
         }
         if (requestCode == RECEIVE_BOOLEAN && resultCode == Activity.RESULT_OK){
