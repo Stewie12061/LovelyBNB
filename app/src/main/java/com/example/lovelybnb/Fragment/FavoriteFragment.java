@@ -58,6 +58,7 @@ public class FavoriteFragment extends Fragment {
     String currentUserId;
     ArrayList<String> arrayList = null;
     SparkButton sparkButton;
+    int KEY=1705;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -108,8 +109,6 @@ public class FavoriteFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         favoriteRef = firebaseDatabase.getReference("Favorite");
 
-        getReceiptKey();
-        getDataFavorite();
     }
 
     @Override
@@ -117,7 +116,10 @@ public class FavoriteFragment extends Fragment {
         super.onStart();
         arrayList = new ArrayList<String>();
         getReceiptKey();
-        getDataFavorite();
+        if (KEY==1705){
+            getDataFavorite();
+        }
+
     }
 
     private void getReceiptKey() {

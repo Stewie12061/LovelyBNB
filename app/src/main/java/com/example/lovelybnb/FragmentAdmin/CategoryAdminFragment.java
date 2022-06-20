@@ -89,6 +89,7 @@ public class CategoryAdminFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @NonNull
     public static CategoryAdminFragment newInstance(String param1, String param2) {
         CategoryAdminFragment fragment = new CategoryAdminFragment();
         Bundle args = new Bundle();

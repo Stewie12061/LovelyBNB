@@ -23,7 +23,6 @@
         android:id="@+id/itemNameDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:fontFamily="@font/bungee"
         android:text="Item Name Detail"
         android:textAlignment="center"
@@ -32,21 +31,24 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backprevious" />
 
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/sliderAd"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        app:iss_auto_cycle="true"
+        app:iss_corner_radius="30"
+        android:layout_margin="16dp"
         android:background="@drawable/stewie"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemNameDetail"/>/>
+        app:layout_constraintTop_toBottomOf="@+id/itemNameDetail"/>
     <Button
         android:id="@+id/editImgSlider"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Edit Image Slider"
+        android:text="Update Image Slider"
         android:fontFamily="@font/airbnb_cereal"
         android:textStyle="bold"
         android:textSize="18dp"

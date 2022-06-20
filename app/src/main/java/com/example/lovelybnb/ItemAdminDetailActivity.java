@@ -3,17 +3,24 @@ package com.example.lovelybnb;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -37,6 +44,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,14 +62,18 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
     ImageSlider imageSlider;
     Uri uri = null;
 
-
     EditText hostName, hostMail, hostPhone, address;
     TextView adCheckInTime,adCheckOutTime;
     CircleImageView adAvater;
 
+    LinearLayout adCheckInPicker, adCheckOutPicker;
+
     Button updateItemAdDetail, editImgSlider, itemSelectImg, itemUploadImg;
     private int PICK_IMG_REQUEST = 1705;
     ItemDetail itemDetail;
+    String checkSliderString = "true";
+
+    TimePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +90,25 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
         itemDetailRef = firebaseDatabase.getReference("Item Detail");
         sliderRef = firebaseDatabase.getReference("Slider");
 
+        //image slider
         imageSlider = findViewById(R.id.sliderAd);
         final List<SlideModel> slideModelArrayList = new ArrayList<>();
-        getDetailImgSlider(itemId, slideModelArrayList);
+        if (checkSliderString!=null){
+            getDetailImgSlider(itemId, slideModelArrayList);
+        }
 
+        editImgSlider = findViewById(R.id.editImgSlider);
+        editImgSlider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ItemAdminDetailActivity.this,EditImageSliderActivity.class);
+                intent.putExtra("itemId",itemId);
+                intent.putExtra("idGoBack","itemAdminDetail");
+                startActivity(intent);
+            }
+        });
+
+        //get detail host
         hostName = findViewById(R.id.edtHostName);
         hostMail = findViewById(R.id.edtHostMail);
         hostPhone = findViewById(R.id.edtHostPhone);
@@ -99,11 +126,45 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
             }
         });
 
-        updateItemAdDetail = findViewById(R.id.updateItemAdDetail);
-        updateItemAdDetail.setOnClickListener(new View.OnClickListener() {
+        adCheckInPicker = findViewById(R.id.AdCheckInPicker);
+        adCheckInPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateItemDetail();
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(ItemAdminDetailActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                int hourFormat = hourOfDay % 12;
+                                adCheckInTime.setText(String.format("%2d:%02d %s", hourFormat == 0 ? 12 : hourFormat,
+                                        minute, hourOfDay < 12 ? "AM" : "PM"));
+                            }
+                        }, hour, minutes, false);
+                picker.show();
+            }
+        });
+
+        adCheckOutPicker = findViewById(R.id.AdCheckOutPicker);
+        adCheckOutPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                picker = new TimePickerDialog(ItemAdminDetailActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                int hourFormat = hourOfDay % 12;
+                                adCheckOutTime.setText(String.format("%2d:%02d %s", hourFormat == 0 ? 12 : hourFormat,
+                                        minute, hourOfDay < 12 ? "AM" : "PM"));
+                            }
+                        }, hour, minutes, false);
+                picker.show();
             }
         });
 
@@ -159,6 +220,15 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //call update dialog
+        updateItemAdDetail = findViewById(R.id.updateItemAdDetail);
+        updateItemAdDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateItemDetail();
+            }
+        });
     }
 
     private void chooseImg() {
@@ -170,8 +240,7 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMG_REQUEST && resultCode == Activity.RESULT_OK
-                && data!=null && data.getData() != null){
+        if (requestCode == PICK_IMG_REQUEST && resultCode == Activity.RESULT_OK){
             uri = data.getData();
             if (null != uri) {
                 // update the preview image in the layout
@@ -219,8 +288,6 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
         }
 
     }
-
-
 
     private void getDetailImgSlider(String itemId, List<SlideModel> slideModelArrayList) {
 
@@ -275,5 +342,23 @@ public class ItemAdminDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final List<SlideModel> slideModelArrayList = new ArrayList<>();
+        if (checkSliderString!=null){
+            getDetailImgSlider(itemId, slideModelArrayList);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final List<SlideModel> slideModelArrayList = new ArrayList<>();
+        if (checkSliderString!=null){
+            getDetailImgSlider(itemId, slideModelArrayList);
+        }
     }
 }

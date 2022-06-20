@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyBNBNo">
         <activity
+            android:name=".EditImageSliderActivity"
+            android:exported="true" />
+        <activity
             android:name=".CreateItemAdminActivity"
             android:exported="true" />
         <activity

@@ -9,31 +9,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.AlignmentSpan;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lovelybnb.Adapter.ItemAdminViewHolder;
-import com.example.lovelybnb.Adapter.PropertyItemsViewHolder;
 import com.example.lovelybnb.Data.PropertyItems;
-import com.example.lovelybnb.Data.PropertyType;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,27 +48,25 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class ItemAdminActivity extends AppCompatActivity {
     int PICK_IMG_REQUEST = 1705;
     TextView countItem, itemCateName,goback;
     ArrayList<String> arrayList;
     RecyclerView rvItemAd;
-    FloatingActionButton openCreateItem;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference itemRef,cateRef;
+    DatabaseReference itemRef,sliderRef,itemDetailRef;
     Uri uri;
     PropertyItems propertyItems;
 
     FloatingActionButton openAddItem;
 
-    String cateId, itemIdForCreate;
+    String cateId;
     FirebaseRecyclerAdapter<PropertyItems, ItemAdminViewHolder> adapter;
 
     String itemPositionId, itemName, catename;
 
     String Name, Price, Place, Rating, Image, Description;
+    public RoundedImageView imgItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +75,8 @@ public class ItemAdminActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         itemRef = firebaseDatabase.getReference("Items");
+        sliderRef = firebaseDatabase.getReference("Slider");
+        itemDetailRef = firebaseDatabase.getReference("Item Detail");
 
         goback = findViewById(R.id.backprevious);
         goback.setOnClickListener(new View.OnClickListener() {
@@ -209,7 +203,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                 new AlertDialog.Builder
                         (ItemAdminActivity.this);
         View view = LayoutInflater.from(ItemAdminActivity.this).inflate(
-                R.layout.dialog_create_item,
+                R.layout.dialog_update_item,
                 (NestedScrollView) findViewById(R.id.layoutDialogContainer)
         );
         builder.setView(view);
@@ -230,7 +224,7 @@ public class ItemAdminActivity extends AppCompatActivity {
         EditText itemPrice = (EditText) view.findViewById(R.id.edtItemPrice);
         EditText itemRating = (EditText) view.findViewById(R.id.edtItemRating);
         EditText itemDes = (EditText) view.findViewById(R.id.edtItemDes);
-        RoundedImageView imgItem = view.findViewById(R.id.imgItem);
+        imgItem = view.findViewById(R.id.imgItem);
 
         itemRef.child(itemPositionId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -295,7 +289,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    propertyItems = new PropertyItems(itemDes.getText().toString(),uri.toString(),itemPositionId,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                                    propertyItems = new PropertyItems(itemDes.getText().toString(),itemPositionId,uri.toString(),itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
                                 }
                             });
                         }
@@ -338,8 +332,8 @@ public class ItemAdminActivity extends AppCompatActivity {
                 else {
                     if (uri==null){
                         alertDialog.dismiss();
-                        propertyItems = new PropertyItems(itemDes.getText().toString(),Image,itemPositionId,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
-                        cateRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        propertyItems = new PropertyItems(itemDes.getText().toString(),itemPositionId,Image,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                        itemRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
@@ -348,7 +342,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                     }
                     else{
                         alertDialog.dismiss();
-                        cateRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        itemRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(),"Update succeed",Toast.LENGTH_SHORT).show();
@@ -374,8 +368,8 @@ public class ItemAdminActivity extends AppCompatActivity {
 
     private void createItem() {
         Intent intent = new Intent(ItemAdminActivity.this,CreateItemAdminActivity.class);
-        intent.putExtra("itemIdForNewItem",itemIdForCreate);
         intent.putExtra("cateName",catename);
+        intent.putExtra("cateId",cateId);
         startActivity(intent);
     }
 
@@ -401,6 +395,8 @@ public class ItemAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 itemRef.child(itemPositionId).removeValue();
+                sliderRef.child(itemPositionId).removeValue();
+                itemDetailRef.child(itemPositionId).removeValue();
                 alertDialog.dismiss();
             }
         });
@@ -430,7 +426,7 @@ public class ItemAdminActivity extends AppCompatActivity {
             uri = data.getData();
             if (null != uri) {
                 // update the preview image in the layout
-//                imgCate.setImageURI(uri);
+                imgItem.setImageURI(uri);
             }
         }
     }
