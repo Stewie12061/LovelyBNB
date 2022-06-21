@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Da La city"
-                android:textSize="18dp"
+                android:textSize="24dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/airbnb_cereal"
                 android:textStyle="bold"
@@ -48,24 +48,25 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/inspireAdImg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="280dp"
+                android:layout_gravity="center"
+                android:layout_height="180dp"
                 android:layout_weight="1"
                 app:riv_corner_radius="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/dalat"/>
 
-            <TextView
-                android:id="@+id/inspireAdDes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/deshcm"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/airbnb_cereal"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:textAlignment="center"/>
+<!--            <TextView-->
+<!--                android:id="@+id/inspireAdDes"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/deshcm"-->
+<!--                android:textSize="18dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:fontFamily="@font/airbnb_cereal"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:textAlignment="center"/>-->
 
         </LinearLayout>
         <LinearLayout

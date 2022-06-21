@@ -30,6 +30,7 @@ import com.example.lovelybnb.Data.Inspire;
 import com.example.lovelybnb.Data.PropertyType;
 import com.example.lovelybnb.ItemAdminActivity;
 import com.example.lovelybnb.ItemClickListener;
+import com.example.lovelybnb.MainAdminActivity;
 import com.example.lovelybnb.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -76,6 +77,8 @@ public class InspireAdminFragment extends Fragment {
 
     boolean isUpLoad=false;
 
+    String isNavBarExpand;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -118,7 +121,7 @@ public class InspireAdminFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         inspireRef = firebaseDatabase.getReference("Inspire Data");
 
-        rvAdInspire = view.findViewById(R.id.rvItemAdmin);
+        rvAdInspire = view.findViewById(R.id.rvInspireAdmin);
         rvAdInspire.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         inspire = new Inspire();
@@ -177,10 +180,11 @@ public class InspireAdminFragment extends Fragment {
                         String inspireimg = snapshot.child("image").getValue().toString();
 
                         holder.inspireAdPlace.setText(inspireplace);
-                        holder.inspireAdDes.setText(inspiredes);
+//                        holder.inspireAdDes.setText(inspiredes);
                         Picasso.get().load(inspireimg).into(holder.inspireAdImg);
 
-                        //edit category
+
+                        //edit inspire
                         holder.btnmodify.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -190,7 +194,7 @@ public class InspireAdminFragment extends Fragment {
                             }
                         });
 
-                        //delete category
+                        //delete inspire
                         holder.btndelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

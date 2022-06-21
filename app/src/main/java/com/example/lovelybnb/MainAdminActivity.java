@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.lovelybnb.Adapter.InspireAdminViewHolder;
 import com.example.lovelybnb.FragmentAdmin.CategoryAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.InspireAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.ProfileAdminFragment;
@@ -48,6 +49,7 @@ public class MainAdminActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userRef;
     FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +124,14 @@ public class MainAdminActivity extends AppCompatActivity {
         expanedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (chipNavigationBar.isExpanded()){
                     adminMail.setVisibility(View.INVISIBLE);
                     adminName.setVisibility(View.INVISIBLE);
                     TransitionManager.beginDelayedTransition(containMenu,changeBounds);
                     chipNavigationBar.collapse();
                     expanedBtn.setImageResource(R.drawable.arrow_expand);
+
                 }
                 else {
                     adminMail.setVisibility(View.VISIBLE);
@@ -140,6 +144,7 @@ public class MainAdminActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void signout() {
 
