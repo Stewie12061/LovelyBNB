@@ -1,41 +1,41 @@
 package com.example.lovelybnb.Data;
 
 public class Inspire {
-    String inspirePlace;
-    String inspireDes;
-    String inspireImg;
+    String place;
+    String description;
+    String image;
 
-    public Inspire(){
+    public Inspire() {
 
     }
 
-    public Inspire(String inspirePlace, String inspireDes, String inspireImg){
-        this.inspirePlace = inspirePlace;
-        this.inspireDes = inspireDes;
-        this.inspireImg = inspireImg;
+    public Inspire(String place, String description, String image) {
+        this.place = place;
+        this.description = description;
+        this.image = image;
     }
 
-    public String getInspirePlace() {
-        return inspirePlace;
+    public String getPlace() {
+        return place;
     }
 
-    public void setInspirePlace(String inspirePlace) {
-        this.inspirePlace = inspirePlace;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
-    public String getInspireDes() {
-        return inspireDes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInspireDes(String inspireDes) {
-        this.inspireDes = inspireDes;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getInspireImg() {
-        return inspireImg;
+    public String getImage() {
+        return image;
     }
 
-    public void setInspireImg(String inspireImg) {
-        this.inspireImg = inspireImg;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

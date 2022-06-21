@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|top"
+    android:layout_margin="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="25dp"
+    android:elevation="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btnDelete"
+            android:layout_width="34dp"
+            android:layout_height="match_parent"
+            android:background="@color/redbnb"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/delete"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="8dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/inspireAdPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Da La city"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/airbnb_cereal"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/inspireAdImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:riv_corner_radius="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dalat"/>
+
+            <TextView
+                android:id="@+id/inspireAdDes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deshcm"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/airbnb_cereal"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnModify"
+            android:layout_width="34dp"
+            android:layout_height="match_parent"
+            android:background="@color/redbnb"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/editing"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
