@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/framelayoutExplore"
     tools:context=".Fragment.ExploreFragment">
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"

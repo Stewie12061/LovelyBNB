@@ -110,12 +110,33 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.setContentView(R.layout.dialog_progress);
                     progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                    userRef.child("Admin").addValueEventListener(new ValueEventListener() {
+                    userRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String adminusername = snapshot.child("Username").getValue().toString();
-                            String passwordadmin = snapshot.child("Password").getValue().toString();
+                            String adminusername = snapshot.child("Admin").child("Username").getValue().toString();
+                            String passwordadmin = snapshot.child("Admin").child("Password").getValue().toString();
+
+                            String adminusername2 = snapshot.child("Admin2").child("Username").getValue().toString();
+                            String passwordadmin2 = snapshot.child("Admin2").child("Password").getValue().toString();
                             if (adminusername.equals(email) && passwordadmin.equals(password)){
+                                firebaseAuth.signInWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                progressDialog.dismiss();
+
+                                                if (task.isSuccessful()) {
+                                                    Intent intent = new Intent(LoginActivity.this, MainAdminActivity.class);
+                                                    startActivity(intent);
+                                                    finishAffinity();
+                                                }
+                                                else {
+                                                    Toast.makeText(LoginActivity.this, "Wrong Email or Password!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }else if (adminusername2.equals(email) && passwordadmin2.equals(password)){
                                 firebaseAuth.signInWithEmailAndPassword(email, password)
                                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                             @Override

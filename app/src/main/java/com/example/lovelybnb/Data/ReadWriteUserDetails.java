@@ -1,7 +1,7 @@
 package com.example.lovelybnb.Data;
 
 public class ReadWriteUserDetails {
-    public String FullName, Email, Gender, PhoneNumber, Role;
+    public String FullName, Email, Gender, PhoneNumber, Role, Avatar;
 
     //Constructor
     public ReadWriteUserDetails(){}
@@ -26,4 +26,6 @@ public class ReadWriteUserDetails {
         this.Gender = gender;
         this.PhoneNumber = PhoneNumber;
     }
+
+
 }

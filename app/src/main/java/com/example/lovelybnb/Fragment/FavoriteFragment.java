@@ -57,7 +57,6 @@ public class FavoriteFragment extends Fragment {
     FirebaseRecyclerAdapter<Favorite, FavoriteViewHolder> adapter;
     String currentUserId;
     ArrayList<String> arrayList = null;
-    SparkButton sparkButton;
     int KEY=1705;
 
     private static final String ARG_PARAM1 = "param1";
@@ -104,7 +103,6 @@ public class FavoriteFragment extends Fragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         currentUserId = user.getUid();
-        sparkButton = view.findViewById(R.id.favFav);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lovelybnb-b90d2-default-rtdb.asia-southeast1.firebasedatabase.app");
         favoriteRef = firebaseDatabase.getReference("Favorite");

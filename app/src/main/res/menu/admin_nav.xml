@@ -18,7 +18,7 @@
         app:cnb_iconColor="@color/white" />
     <item
         android:id="@+id/mnuProfileAdmin"
-        android:icon="@drawable/ic_account"
+        android:icon="@drawable/ic_message"
         android:title="Admin Profile"
         app:cnb_iconColor="@color/white" />
     <item

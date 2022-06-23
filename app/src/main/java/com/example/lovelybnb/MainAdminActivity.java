@@ -20,10 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.lovelybnb.Adapter.InspireAdminViewHolder;
 import com.example.lovelybnb.FragmentAdmin.CategoryAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.InspireAdminFragment;
-import com.example.lovelybnb.FragmentAdmin.ProfileAdminFragment;
+import com.example.lovelybnb.FragmentAdmin.MessageAdminFragment;
 import com.example.lovelybnb.FragmentAdmin.SearchAdminFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -104,7 +103,7 @@ public class MainAdminActivity extends AppCompatActivity {
                         fragment = new SearchAdminFragment();
                         break;
                     case R.id.mnuProfileAdmin:
-                        fragment = new ProfileAdminFragment();
+                        fragment = new MessageAdminFragment();
                         break;
                     case R.id.mnuSignoutMenu:
                         fragment = new CategoryAdminFragment();
