@@ -98,14 +98,9 @@ public class MessageAdminFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String name = snapshot.child("FullName").getValue().toString();
-                        String email = snapshot.child("Email").getValue().toString();
-                        String gender = snapshot.child("Gender").getValue().toString();
-                        String phone = snapshot.child("PhoneNumber").getValue().toString();
-
-                        holder.adminPhone.setText(phone);
-                        holder.adminMail.setText(email);
+                        String mail = snapshot.child("Email").getValue().toString();
                         holder.adminName.setText(name);
-                        holder.adminGender.setText(gender);
+                        holder.adminMail.setText(mail);
 
                         holder.setItemClickListener(new ItemClickListener() {
                             @Override
@@ -128,7 +123,7 @@ public class MessageAdminFragment extends Fragment {
             @NonNull
             @Override
             public ItemUserMessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_list,parent,false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_customer_list,parent,false);
                 ItemUserMessageViewHolder viewHolder = new ItemUserMessageViewHolder(view);
                 return viewHolder;
             }
