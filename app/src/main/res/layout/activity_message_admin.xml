@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MessageActivity">
+    tools:context=".MessageAdminActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView7"
@@ -82,7 +82,7 @@
         app:lottie_rawRes="@raw/searchadmin" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMessage"
+        android:id="@+id/rvMessageAdmin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
@@ -136,5 +136,4 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

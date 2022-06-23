@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyBNBNo">
         <activity
+            android:name=".MessageAdminActivity"
+            android:exported="true" />
+        <activity
             android:name=".MessageActivity"
             android:exported="true" />
         <activity

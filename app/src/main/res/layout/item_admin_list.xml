@@ -8,6 +8,19 @@
     android:elevation="10dp"
     android:layout_height="wrap_content">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/unSeenMess"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/rounded_squared"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:padding="5dp"
         android:layout_width="match_parent"
@@ -44,7 +57,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginLeft="16dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/itemAdEmailMessage"
@@ -53,7 +65,7 @@
                 android:text="Admin Email"
                 android:layout_margin="8dp"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/redplus"
                 android:textStyle="bold"
                 android:fontFamily="@font/airbnb_cereal"
                 android:textSize="20dp"/>
@@ -64,7 +76,7 @@
                 android:text="Admin Gender"
                 android:layout_margin="8dp"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/redplus"
                 android:textStyle="bold"
                 android:fontFamily="@font/airbnb_cereal"
                 android:textSize="20dp"/>
@@ -75,7 +87,7 @@
                 android:text="Admin Phone"
                 android:layout_margin="8dp"
                 android:layout_gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/redplus"
                 android:textStyle="bold"
                 android:fontFamily="@font/airbnb_cereal"
                 android:textSize="20dp"/>

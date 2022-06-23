@@ -28,9 +28,9 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MessageActivity extends AppCompatActivity {
+public class MessageAdminActivity extends AppCompatActivity {
 
-    String adId;
+    String customerId;
 
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
@@ -45,14 +45,14 @@ public class MessageActivity extends AppCompatActivity {
     EditText edtMessage;
     ImageButton btnSendMess;
 
-    RecyclerView rvMessage;
+    RecyclerView rvMessageAdmin;
     MessageAdapter messageAdapter;
     ArrayList<Chat> chatArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message);
+        setContentView(R.layout.activity_message_admin);
 
         goback = findViewById(R.id.backprevious);
         goback.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         adminNameMessage = findViewById(R.id.adminNameMessage);
         adAvatar = findViewById(R.id.adAvatarMessage);
 
-        adId = getIntent().getStringExtra("idAdmin");
+        customerId = getIntent().getStringExtra("idCustomer");
 
         edtMessage = findViewById(R.id.edtMessage);
         btnSendMess = findViewById(R.id.btnSendMess);
@@ -81,7 +81,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String mess = edtMessage.getText().toString();
                 if (!mess.equals("")){
-                    sendMessage(currentUserId,adId,mess);
+                    sendMessage(currentUserId,customerId,mess);
                 }else {
                     Toast.makeText(getApplicationContext(),"You have to write something first",Toast.LENGTH_SHORT).show();
                 }
@@ -89,18 +89,16 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        rvMessage = findViewById(R.id.rvMessage);
+        rvMessageAdmin = findViewById(R.id.rvMessageAdmin);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         linearLayoutManager.setStackFromEnd(true);
-        rvMessage.setLayoutManager(linearLayoutManager);
+        rvMessageAdmin.setLayoutManager(linearLayoutManager);
 
-        userRef.child(adId).addValueEventListener(new ValueEventListener() {
+        userRef.child(customerId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 adminNameMessage.setText(snapshot.child("FullName").getValue().toString());
-                Picasso.get().load(snapshot.child("avatar").getValue().toString()).into(adAvatar);
-
-                getMessage(currentUserId,adId);
+                getMessage(currentUserId,customerId);
             }
 
             @Override
@@ -108,7 +106,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -137,11 +134,11 @@ public class MessageActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                     Chat chat = dataSnapshot.getValue(Chat.class);
                     if (chat.getReceiver().equals(currentUserId) && chat.getSender().equals(adId) ||
-                    chat.getReceiver().equals(adId) && chat.getSender().equals(currentUserId)){
+                            chat.getReceiver().equals(adId) && chat.getSender().equals(currentUserId)){
                         chatArrayList.add(chat);
                     }
-                    messageAdapter = new MessageAdapter(MessageActivity.this,chatArrayList);
-                    rvMessage.setAdapter(messageAdapter);
+                    messageAdapter = new MessageAdapter(MessageAdminActivity.this,chatArrayList);
+                    rvMessageAdmin.setAdapter(messageAdapter);
                 }
             }
 
@@ -151,6 +148,4 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

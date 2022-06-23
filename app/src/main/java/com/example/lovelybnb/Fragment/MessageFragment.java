@@ -118,7 +118,8 @@ public class MessageFragment extends Fragment {
                             public void onClick(View view, int position, boolean isLongClick) {
                                 Intent intent = new Intent(getContext(), MessageActivity.class);
                                 intent.putExtra("idAdmin",id);
-                                Toast.makeText(getContext(),id,Toast.LENGTH_SHORT).show();
+                                getActivity().overridePendingTransition(R.anim.zoom_in,R.anim.no_animation);
+                                startActivity(intent);
                             }
                         });
                     }
