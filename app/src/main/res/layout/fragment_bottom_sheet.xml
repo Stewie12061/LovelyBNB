@@ -323,8 +323,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="Price/night"
+                        android:text="/night"
                         android:textColor="@color/white"
+                        android:drawableStart="@drawable/dollar_white"
                         android:textSize="18dp" />
 
                     <TextView
@@ -360,7 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/airbnb_cereal"
-                        android:text="Total price"
+                        android:text="Total"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
 

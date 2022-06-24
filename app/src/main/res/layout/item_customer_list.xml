@@ -35,7 +35,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="center"
-                    android:textColor="@color/redbnb"
+                    android:textColor="@color/redplus"
                     android:fontFamily="@font/bungee"
                     android:textSize="18dp"/>
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="center"
-                    android:textColor="@color/redbnb"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/airbnb_cereal"
                     android:textStyle="bold"
                     android:textSize="16dp"/>
