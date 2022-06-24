@@ -202,7 +202,7 @@ public class ItemDetailActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void getDetailItem(String itemId) {
-        detailRef.child(itemId).addValueEventListener(new ValueEventListener() {
+        detailRef.child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String Name = snapshot.child("itemName").getValue().toString();
