@@ -223,7 +223,7 @@ public class ExploreFragment extends Fragment{
 
                 String id = getRef(position).getKey();
 
-                referenceProperty.child(id).addValueEventListener(new ValueEventListener() {
+                referenceProperty.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String propertyname = dataSnapshot.child("propertyName").getValue().toString();
