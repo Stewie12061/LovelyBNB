@@ -289,7 +289,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    propertyItems = new PropertyItems(itemDes.getText().toString(),itemPositionId,uri.toString(),itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                                    propertyItems = new PropertyItems(itemDes.getText().toString(),cateId,uri.toString(),itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
                                 }
                             });
                         }
@@ -332,7 +332,7 @@ public class ItemAdminActivity extends AppCompatActivity {
                 else {
                     if (uri==null){
                         alertDialog.dismiss();
-                        propertyItems = new PropertyItems(itemDes.getText().toString(),itemPositionId,Image,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
+                        propertyItems = new PropertyItems(itemDes.getText().toString(),cateId,Image,itemName.getText().toString(),itemPlace.getText().toString(),itemPrice.getText().toString(),itemRating.getText().toString());
                         itemRef.child(itemPositionId).setValue(propertyItems).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
