@@ -417,7 +417,7 @@ public class CategoryAdminFragment extends Fragment {
         EditText cateName = (EditText) view.findViewById(R.id.edtCateName);
         imgCate = view.findViewById(R.id.imgCate);
 
-        cateRef.child(catePositionId).addValueEventListener(new ValueEventListener() {
+        cateRef.child(catePositionId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 img = snapshot.child("propertyImg").getValue().toString();

@@ -408,19 +408,4 @@ public class PropertyItemsActivity extends AppCompatActivity implements SwipeRef
 
     }
 
-    private class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-        private final int horizontalSpaceWidth;
-
-        public HorizontalSpaceItemDecoration(int horizontalSpaceWidth) {
-            this.horizontalSpaceWidth = horizontalSpaceWidth;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                                   RecyclerView.State state) {
-            outRect.right = horizontalSpaceWidth;
-        }
-    }
-
-
 }

@@ -40,7 +40,7 @@ public class ProfileFragment extends Fragment {
     private TextView txtemail, txtgender, txtfullname, txtphone, changePassbtn, txtL1, txtL2, txtL3, txtL4, txtL5;
     private ImageView profileAvatar;
     private Button signOut;
-    private LinearLayout editUser;
+    private LinearLayout editUser, payment;
     private Animation topAnim, bottomAnim, rightAnim, leftAnim;
 
     private TextView appName1, appName2;
@@ -170,6 +170,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UpdateProfileActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        payment = view.findViewById(R.id.payment);
+        payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Developing",Toast.LENGTH_SHORT).show();
             }
         });
     }
