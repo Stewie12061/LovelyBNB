@@ -226,7 +226,7 @@ public class ItemAdminActivity extends AppCompatActivity {
         EditText itemDes = (EditText) view.findViewById(R.id.edtItemDes);
         imgItem = view.findViewById(R.id.imgItem);
 
-        itemRef.child(itemPositionId).addValueEventListener(new ValueEventListener() {
+        itemRef.child(itemPositionId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Name = snapshot.child("itemName").getValue().toString();
